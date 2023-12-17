@@ -3,7 +3,10 @@
 #include <stddef.h>
 #include <cmocka.h>
 
-static void test(void **state)
+#include "test.h"
+
+static void
+test(void **state)
 {
     assert_int_equal(2, 2);
 }
