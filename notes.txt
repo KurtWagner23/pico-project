@@ -1,0 +1,12 @@
+# copy binaries from cli to rpi pico
+
+cp /<output-folder>/bin/binary.uf2 /media/<user name>/RPI-RP2
+
+
+# for serial port 
+
+pico_enable_stdio_usb(${EXECUTABLE_NAME} 1)
+pico_enable_stdio_uart(${EXECUTABLE_NAME} 0)
+
+$ sudo chmod 666 /dev/ttyACM0
+$ minicom -b 115200 -o -D /dev/ttyACM0

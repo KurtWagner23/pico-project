@@ -3,8 +3,6 @@
 #include <stddef.h>
 #include <cmocka.h>
 
-#include "test.h"
-
 static void
 test(void **state)
 {
