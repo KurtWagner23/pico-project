@@ -3,6 +3,9 @@
 #include <stddef.h>
 #include <cmocka.h>
 
+// included from main project src-directory
+#include "lcd.h"
+
 static void
 test(void **state)
 {

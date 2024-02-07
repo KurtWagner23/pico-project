@@ -10,3 +10,5 @@ pico_enable_stdio_uart(${EXECUTABLE_NAME} 0)
 
 $ sudo chmod 666 /dev/ttyACM0
 $ minicom -b 115200 -o -D /dev/ttyACM0
+
+

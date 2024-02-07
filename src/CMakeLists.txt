@@ -23,7 +23,15 @@ set_target_properties( ${PROJECT_NAME}
 )
 
 # Add pico_stdlib library which aggregates commonly used features
-target_link_libraries(${PROJECT_NAME} PUBLIC pico_stdlib LCD Infrared Icm20948 GUI Fonts Config hardware_spi)
+target_link_libraries(${PROJECT_NAME} PUBLIC 
+    pico_stdlib 
+    LCD Infrared 
+    Icm20948 
+    GUI 
+    Fonts 
+    Config 
+    hardware_spi
+)
 # create map/bin/hex/uf2 file in addition to ELF.
 pico_add_extra_outputs(${PROJECT_NAME})
 

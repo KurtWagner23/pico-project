@@ -1,6 +1,8 @@
 
 #include "lcd.h"
 
+// TODO: put display size in struct
+
 UDOUBLE Imagesize;
 
 void init_lcd()
@@ -25,6 +27,7 @@ void update_image(UWORD *image)
 
 void display_text_lcd()
 {
+    // maybe static???
     UWORD Image[Imagesize];
     Paint_NewImage((UBYTE *)Image, LCD_1IN14.WIDTH, LCD_1IN14.HEIGHT, 0, WHITE);
     Paint_SetScale(65);

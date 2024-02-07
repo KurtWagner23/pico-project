@@ -3,6 +3,7 @@
 #include "pico/stdlib.h"
 #include "lcd.h"
 
+// put here every setup code for running only once
 void setup()
 {
     // init pico default LED
@@ -14,11 +15,10 @@ void setup()
 
 int main()
 {
+    // setup function called once
     setup();
 
-    // Display Image with Text
-
-    // Displaying image with two different texts
+    // main loop
     for (;;)
     {
         display_text_lcd();
