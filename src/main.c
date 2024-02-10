@@ -21,10 +21,17 @@ int main()
     // main loop
     for (;;)
     {
-        display_text_lcd();
+        display_text_lcd(1, "This is line 1!");
+        display_text_lcd(2, "This is line 2!");
         gpio_put(PICO_DEFAULT_LED_PIN, 1);
+        /*
         sleep_ms(2000);
         gpio_put(PICO_DEFAULT_LED_PIN, 0);
         sleep_ms(2000);
+        */
+        sleep_ms(3000);
+        // display_text_lcd(1, "Update Line 1!");
+        display_text_lcd(2, "Update 2");
+        sleep_ms(3000);
     }
 }

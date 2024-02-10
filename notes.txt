@@ -1,6 +1,6 @@
 # copy binaries from cli to rpi pico
 
-cp /<output-folder>/bin/binary.uf2 /media/<user name>/RPI-RP2
+cp <output-folder>/bin/main.uf2 /media/<user name>/RPI-RP2
 
 
 # for serial port 
