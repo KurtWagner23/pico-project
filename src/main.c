@@ -31,7 +31,7 @@ int main()
         */
         sleep_ms(3000);
         // display_text_lcd(1, "Update Line 1!");
-        display_text_lcd(2, "Update 2");
+        display_text_lcd(2, "Update line 2");
         sleep_ms(3000);
     }
 }

@@ -54,7 +54,7 @@ parameter:  str :   string to be displayed
 void display_line_1(char *str)
 {
     Paint_DrawString_EN(1, 20, str, &Font20, WHITE, BLACK);
-    LCD_1IN14_DisplayWindows(1, 1, 250, 50, image_lcd.image);
+    LCD_1IN14_DisplayWindows(1, 1, 240, 67, image_lcd.image);
 }
 
 /******************************************************************************
@@ -63,8 +63,8 @@ parameter:  str :   string to be displayed
 ******************************************************************************/
 void display_line_2(char *str)
 {
-    Paint_DrawString_EN(1, 80, str, &Font20, WHITE, BLACK);
-    LCD_1IN14_DisplayWindows(1, 80, 250, 130, image_lcd.image);
+    Paint_DrawString_EN(1, 75, str, &Font20, WHITE, BLACK);
+    LCD_1IN14_DisplayWindows(1, 68, 240, 135, image_lcd.image);
 }
 
 /******************************************************************************
@@ -103,7 +103,7 @@ parameter:  -
 ******************************************************************************/
 void clear_line_1()
 {
-    Paint_ClearWindows(1, 1, 250, 50, WHITE);
+    Paint_ClearWindows(1, 1, 240, 67, WHITE);
 }
 
 /******************************************************************************
@@ -112,5 +112,5 @@ parameter:  -
 ******************************************************************************/
 void clear_line_2()
 {
-    Paint_ClearWindows(1, 80, 250, 130, WHITE);
+    Paint_ClearWindows(1, 68, 240, 135, WHITE);
 }
