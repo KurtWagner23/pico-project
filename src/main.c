@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "pico/stdlib.h"
 #include "lcd.h"
+#include "Debug.h"
 
 // put here every setup code for running only once
 void setup()
@@ -32,6 +33,8 @@ int main()
         sleep_ms(3000);
         // display_text_lcd(1, "Update Line 1!");
         display_text_lcd(2, "Update line 2");
+
+        Debug("Updating line 2");
         sleep_ms(3000);
     }
 }

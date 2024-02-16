@@ -2,6 +2,9 @@
 
 cmake_minimum_required(VERSION 3.17)
 
+if(CMAKE_BUILD_TYPE MATCHES Debug)
+    add_definitions(-DDEBUG)
+endif()
 
 
 OPTION(BUILD_TESTS "Build the test binary" OFF)
