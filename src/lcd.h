@@ -5,6 +5,10 @@
 #include "GUI_Paint.h"
 #include "LCD_1in14.h"
 
+/*
+Variables and Structs
+*/
+
 typedef struct
 {
     UWORD width;
@@ -13,6 +17,10 @@ typedef struct
 } Image;
 
 extern Image image_lcd;
+
+/*
+Function Prototypes
+*/
 
 int init_lcd(void);
 

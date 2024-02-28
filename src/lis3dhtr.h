@@ -16,14 +16,26 @@ Default SDA Pin -> GP20
 Default SCL Pin -> GP21
 */
 
+/*
+Defines
+*/
+
 #define DEFAULT_SDA_PIN 20
 #define DEFAULT_SCL_PIN 21
 #define LIS3DHTR_HW_ADDRESS (0x19)
 #define LIS3DHTR_CONVERSIONDELAY (100)
 #define EARTH_GRAVITY 9.80665 // [m/s^2]
 
+/*
+Variables and Structs
+*/
+
 extern i2c_inst_t *_i2c;
 extern uint8_t _address;
+
+/*
+Function Prototypes
+*/
 
 int init_LIS3DHTR(i2c_inst_t *i2c, uint8_t hardwareAddress, uint8_t scl_pin, uint8_t sda_pin);
 

@@ -88,7 +88,7 @@ float calculateAcceleration_LIS3DHTR(uint16_t rawData, bool isAccel)
 /******************************************************************************
 function :	Function for reading data from registers
 parameter:
-    regLow:     The lower register where the acceleration values are stored
+    regLow:     The lower register address to read from
     isAccel:    To specify temperature or acceleration calculation
 return:   Returns the calculated acceleration in m/s^2 or temperature in °C
 ******************************************************************************/
