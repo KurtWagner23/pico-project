@@ -6,29 +6,37 @@ Image image_lcd;
 /******************************************************************************
 function :	Public function for initializing LCD
 parameter:  -
+return:
+    0:  if initializing the DEV-Module and init_image was succesful
+    -1: if error at initializing
 ******************************************************************************/
-void init_lcd()
+int init_lcd()
 {
     printf("Init LCD\n");
     if (DEV_Module_Init() != 0)
     {
-        exit(-1);
+        return -1;
     }
 
     // LCD Init
     printf("Initialize in horizontal mode\n");
     LCD_1IN14_Init(HORIZONTAL);
 
-    init_image();
+    return init_image();
 }
 
 /******************************************************************************
-function :	Public function for initializing LCD
+function :	Private function for initializing Image dimensions
 parameter:  -
+return:
+    -1: if image memory could not be allocated
+    0:  if image memory could be allocated
 ******************************************************************************/
-void init_image()
+int init_image()
 {
     image_lcd.image = (UWORD *)malloc(LCD_1IN14_HEIGHT * LCD_1IN14_WIDTH * 2);
+    if (image_lcd.image == NULL)
+        return -1;
     image_lcd.height = LCD_1IN14.HEIGHT;
     image_lcd.width = LCD_1IN14.WIDTH;
 
@@ -36,6 +44,8 @@ void init_image()
     Paint_SetScale(65);
     clear_image();
     update_image();
+
+    return 0;
 }
 
 /******************************************************************************

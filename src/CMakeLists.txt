@@ -12,6 +12,7 @@ include_directories(../external/Pico-LCD-1.14/c/lib/Infrared)
 add_executable(${PROJECT_NAME}
     main.c
     lcd.c
+    lis3dhtr.c  # acceleration sensor
 )
 
 
@@ -24,13 +25,17 @@ set_target_properties( ${PROJECT_NAME}
 
 # Add pico_stdlib library which aggregates commonly used features
 target_link_libraries(${PROJECT_NAME} PUBLIC 
-    pico_stdlib 
-    LCD Infrared 
+    # pico libraries
+    pico_stdlib
+    hardware_i2c
+    hardware_spi
+    # LCD libraries 
+    LCD 
+    Infrared 
     Icm20948 
     GUI 
     Fonts 
     Config 
-    hardware_spi
 )
 # create map/bin/hex/uf2 file in addition to ELF.
 pico_add_extra_outputs(${PROJECT_NAME})

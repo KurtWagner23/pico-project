@@ -18,11 +18,11 @@ void init_lcd(void);
 
 void update_image(void);
 
-void display_text_lcd(int, char *);
+void display_text_lcd(int line, char *str);
 
-void display_line_1(char *);
+void display_line_1(char *str);
 
-void display_line_2(char *);
+void display_line_2(char *str);
 
 void init_image(void);
 

@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "pico/stdlib.h"
 #include "lcd.h"
+#include "lis3dhtr.h"
 #include "Debug.h"
 
 // put here every setup code for running only once
@@ -12,6 +13,8 @@ void setup()
     gpio_set_dir(PICO_DEFAULT_LED_PIN, GPIO_OUT);
 
     init_lcd();
+
+    init_LIS3DHTR(i2c0, LIS3DHTR_HW_ADDRESS, DEFAULT_SCL_PIN, DEFAULT_SDA_PIN);
 }
 
 int main()
@@ -19,22 +22,24 @@ int main()
     // setup function called once
     setup();
 
-    // main loop
-    for (;;)
-    {
-        display_text_lcd(1, "This is line 1!");
-        display_text_lcd(2, "This is line 2!");
-        gpio_put(PICO_DEFAULT_LED_PIN, 1);
-        /*
-        sleep_ms(2000);
-        gpio_put(PICO_DEFAULT_LED_PIN, 0);
-        sleep_ms(2000);
-        */
-        sleep_ms(3000);
-        // display_text_lcd(1, "Update Line 1!");
-        display_text_lcd(2, "Update line 2");
+    char acc[50];
+    char temp[10];
 
-        Debug("Updating line 2");
-        sleep_ms(3000);
+    gpio_put(PICO_DEFAULT_LED_PIN, 1);
+
+    // main loop
+    while (1)
+    {
+
+        sprintf(acc, "Acc x:%.2f, y:%.2f, z:%.2f",
+                getAccelerationX_LIS3DHTR(),
+                getAccelerationY_LIS3DHTR(),
+                getAccelerationZ_LIS3DHTR());
+        display_text_lcd(1, acc);
+
+        sprintf(temp, "Temp: %.2f oC", getTemp_LIS3DHTR());
+        display_text_lcd(2, temp);
+
+        sleep_ms(1000);
     }
 }
