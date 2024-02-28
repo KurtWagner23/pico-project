@@ -14,7 +14,7 @@ typedef struct
 
 extern Image image_lcd;
 
-void init_lcd(void);
+int init_lcd(void);
 
 void update_image(void);
 
@@ -24,7 +24,7 @@ void display_line_1(char *str);
 
 void display_line_2(char *str);
 
-void init_image(void);
+int init_image(void);
 
 void clear_image(void);
 
