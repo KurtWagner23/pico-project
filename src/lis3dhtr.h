@@ -1,9 +1,17 @@
 #ifndef LIS3DHTR_H
 #define LIS3DHTR_H
 
+#include <stdio.h>
+#include <stdint.h>
+#include <stdbool.h>
+// exclude pico libraries when building sw-tests
+// and include mock functions
+#ifdef SW_TESTS
+#include "../test/mocks/mocks.h"
+#else
 #include "pico/stdlib.h"
 #include "hardware/i2c.h"
-#include <stdio.h>
+#endif
 
 /*
 *
@@ -29,14 +37,12 @@ Defines
 /*
 Variables and Structs
 */
-
-extern i2c_inst_t *_i2c;
 extern uint8_t _address;
+extern i2c_inst_t *_i2c;
 
 /*
 Function Prototypes
 */
-
 int init_LIS3DHTR(i2c_inst_t *i2c, uint8_t hardwareAddress, uint8_t scl_pin, uint8_t sda_pin);
 
 float readData_LIS3DHTR(uint8_t regLow, bool isAccel);

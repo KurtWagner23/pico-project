@@ -1,7 +1,7 @@
 #include "lis3dhtr.h"
 
-i2c_inst_t *_i2c;
 uint8_t _address;
+i2c_inst_t *_i2c;
 
 /******************************************************************************
 function :	Initialize LIS3DHTR Sensor
@@ -25,7 +25,8 @@ int init_LIS3DHTR(i2c_inst_t *i2c, uint8_t hardwareAddress, uint8_t scl_pin, uin
 
     sleep_ms(LIS3DHTR_CONVERSIONDELAY);
 
-    i2c_init(_i2c, 400 * 1000);
+    uint baudrate = 400 * 1000;
+    i2c_init(_i2c, baudrate);
     gpio_set_function(scl_pin, GPIO_FUNC_I2C);
     gpio_set_function(sda_pin, GPIO_FUNC_I2C);
 

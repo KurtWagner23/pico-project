@@ -6,8 +6,14 @@ if(CMAKE_BUILD_TYPE MATCHES Debug)
     add_definitions(-DDEBUG)
 endif()
 
-
+# Define a CMake variable to control the inclusion of certain headers
+option(SW_TESTS "Exclude certain headers" OFF)
 OPTION(BUILD_TESTS "Build the test binary" OFF)
+
+if(SW_TESTS)
+    add_compile_definitions(SW_TESTS)
+endif()
+
 if(BUILD_TESTS)
   project(test)
   enable_language(C CXX ASM)
