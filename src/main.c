@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "pico/stdlib.h"
 #include "lcd.h"
+#include "dht20.h"
 #include "lis3dhtr.h"
 #include "Debug.h"
 
@@ -26,18 +27,19 @@ int main()
     char temp[10];
 
     gpio_put(PICO_DEFAULT_LED_PIN, 1);
-
+    dht20_values Values; //global?
+    //Values = dht20_read(Values);
     // main loop
     while (1)
     {
-
+        Values = dht20_read(Values);
         sprintf(acc, "Acc x:%.2f, y:%.2f, z:%.2f",
                 getAccelerationX_LIS3DHTR(),
                 getAccelerationY_LIS3DHTR(),
                 getAccelerationZ_LIS3DHTR());
         display_text_lcd(1, acc);
 
-        sprintf(temp, "Temp: %.2f oC", getTemp_LIS3DHTR());
+        sprintf(temp, "Temp: %.2f oC", Values.hum);
         display_text_lcd(2, temp);
 
         sleep_ms(1000);
