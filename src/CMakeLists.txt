@@ -35,7 +35,7 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
     Icm20948 
     GUI 
     Fonts 
-    Config 
+    Config
 )
 # create map/bin/hex/uf2 file in addition to ELF.
 pico_add_extra_outputs(${PROJECT_NAME})

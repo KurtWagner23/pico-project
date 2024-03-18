@@ -1,11 +1,12 @@
-#ifndef MOCKS_H
-#define MOCKS_H
+#ifndef PROTOTYPES_H
+#define PROTOTYPES_H
 #include <stdint.h>
 #include <stdbool.h>
-#include <stdarg.h>
-#include <setjmp.h>
 #include <stddef.h>
-#include <cmocka.h>
+
+/*
+Prototype functions so that everything compiles without the RaspberryPi Pico SDK
+*/
 
 #define PICO_ERROR_GENERIC -2
 
@@ -33,4 +34,4 @@ int i2c_write_blocking(i2c_inst_t *i2c, uint8_t addr, const uint8_t *src, size_t
 
 int i2c_read_blocking(i2c_inst_t *i2c, uint8_t addr, uint8_t *dst, size_t len, bool nostop);
 
-#endif // MOCKS_H
+#endif // PROTOTYPES_H

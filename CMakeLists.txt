@@ -30,6 +30,7 @@ else()
   set(CMAKE_CXX_STANDARD 17)
   # Add a compilation subdirectory
   add_subdirectory(src)
+  #add_subdirectory(test)
   add_subdirectory(external/Pico-LCD-1.14/c/lib/Infrared)
   add_subdirectory(external/Pico-LCD-1.14/c/lib/Icm20948)
   add_subdirectory(external/Pico-LCD-1.14/c/lib/LCD)
