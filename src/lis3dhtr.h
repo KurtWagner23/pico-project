@@ -5,9 +5,9 @@
 #include <stdint.h>
 #include <stdbool.h>
 // exclude pico libraries when building sw-tests
-// and include mock functions
+// and include prototype functions
 #ifdef SW_TESTS
-#include "../test/mocks/mocks.h"
+#include "../test/prototypes/prototypes.h"
 #else
 #include "pico/stdlib.h"
 #include "hardware/i2c.h"
@@ -56,5 +56,7 @@ float getAccelerationX_LIS3DHTR(void);
 float getAccelerationY_LIS3DHTR(void);
 
 float getAccelerationZ_LIS3DHTR(void);
+
+uint8_t readReg(uint8_t reg);
 
 #endif // LIS3DHTR_H

@@ -22,6 +22,7 @@ int init_LIS3DHTR(i2c_inst_t *i2c, uint8_t hardwareAddress, uint8_t scl_pin, uin
     uint8_t buf[2];
 
     int error;
+    int return_value = 0; // Return 0 when no errors occur!
 
     sleep_ms(LIS3DHTR_CONVERSIONDELAY);
 
@@ -39,25 +40,25 @@ int init_LIS3DHTR(i2c_inst_t *i2c, uint8_t hardwareAddress, uint8_t scl_pin, uin
     buf[1] = 0x97;
     error = i2c_write_blocking(_i2c, _address, buf, 2, false);
     if (error == PICO_ERROR_GENERIC)
-        return -1;
+        return_value = -1;
 
     // Turn block data update on (for temperature sensing)
     buf[0] = 0x23;
     buf[1] = 0x80;
     error = i2c_write_blocking(_i2c, _address, buf, 2, false);
     if (error == PICO_ERROR_GENERIC)
-        return -1;
+        return_value = -1;
 
     // Turn ADC on
     buf[0] = 0x1F;
     buf[1] = 0xC0;
     error = i2c_write_blocking(_i2c, _address, buf, 2, false);
     if (error == PICO_ERROR_GENERIC)
-        return -1;
+        return_value = -1;
 
     sleep_ms(LIS3DHTR_CONVERSIONDELAY);
 
-    return 0;
+    return return_value;
 }
 
 /******************************************************************************
@@ -101,17 +102,28 @@ float readData_LIS3DHTR(uint8_t regLow, bool isAccel)
     uint16_t raw_accel;
     uint8_t regHigh = regLow | 0x01;
 
-    // read register low
-    i2c_write_blocking(_i2c, _address, &regLow, 1, true);
-    i2c_read_blocking(_i2c, _address, &lsb, 1, false);
-
-    // read register high
-    i2c_write_blocking(_i2c, _address, &regHigh, 1, true);
-    i2c_read_blocking(_i2c, _address, &msb, 1, false);
+    lsb = readReg(regLow);
+    msb = readReg(regHigh);
 
     raw_accel = (msb << 8) | lsb;
 
     return calculateAcceleration_LIS3DHTR(raw_accel, isAccel);
+}
+
+/******************************************************************************
+function :	Function for reading data from the specified register
+parameter:
+    reg:     The register address to read from
+return:   Returns one byte of read date
+******************************************************************************/
+uint8_t readReg(uint8_t reg)
+{
+    uint8_t byte;
+    // read register
+    i2c_write_blocking(_i2c, _address, &reg, 1, true);
+    i2c_read_blocking(_i2c, _address, &byte, 1, false);
+
+    return byte;
 }
 
 /******************************************************************************
