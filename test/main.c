@@ -7,10 +7,8 @@
     Define here all your test cases and add them in the main function!
 */
 
-static void test_init_LIS3DHTR(void **state)
-{
-
-    i2c_inst_t *i2c = {10};
+static void test_init_LIS3DHTR(void** state) {
+    i2c_inst_t* i2c = {10};
     int return_value;
     expect_any(__wrap_i2c_write_blocking, addr);
     expect_any(__wrap_i2c_write_blocking, src);
@@ -24,15 +22,14 @@ static void test_init_LIS3DHTR(void **state)
     expect_any(__wrap_i2c_write_blocking, src);
     will_return(__wrap_i2c_write_blocking, 0);
 
-    return_value = init_LIS3DHTR(i2c, LIS3DHTR_HW_ADDRESS, DEFAULT_SCL_PIN, DEFAULT_SDA_PIN);
+    return_value = init_LIS3DHTR(
+        i2c, LIS3DHTR_HW_ADDRESS, DEFAULT_SCL_PIN, DEFAULT_SDA_PIN);
 
     assert_int_equal(return_value, 0);
 }
 
-static void test_init_LIS3DHTR_ERROR_RETURN(void **state)
-{
-
-    i2c_inst_t *i2c = {10};
+static void test_init_LIS3DHTR_ERROR_RETURN(void** state) {
+    i2c_inst_t* i2c = {10};
     int return_value;
 
     expect_any(__wrap_i2c_write_blocking, addr);
@@ -47,13 +44,13 @@ static void test_init_LIS3DHTR_ERROR_RETURN(void **state)
     expect_any(__wrap_i2c_write_blocking, src);
     will_return(__wrap_i2c_write_blocking, PICO_ERROR_GENERIC);
 
-    return_value = init_LIS3DHTR(i2c, LIS3DHTR_HW_ADDRESS, DEFAULT_SCL_PIN, DEFAULT_SDA_PIN);
+    return_value = init_LIS3DHTR(
+        i2c, LIS3DHTR_HW_ADDRESS, DEFAULT_SCL_PIN, DEFAULT_SDA_PIN);
 
     assert_int_equal(return_value, -1);
 }
 
-static void test_readReg_zero_return(void **state)
-{
+static void test_readReg_zero_return(void** state) {
     uint8_t byte;
     uint8_t check_addr = 0x19;
 
@@ -70,18 +67,15 @@ static void test_readReg_zero_return(void **state)
     assert_int_equal(byte, 0);
 }
 
-static void test_getAccelerationX(void **state)
-{
+static void test_getAccelerationX(void** state) {
 }
 
-int main(void)
-{
-    const struct CMUnitTest tests[] =
-        {
-            cmocka_unit_test(test_init_LIS3DHTR),
-            cmocka_unit_test(test_init_LIS3DHTR_ERROR_RETURN),
-            cmocka_unit_test(test_readReg_zero_return),
-        };
+int main(void) {
+    const struct CMUnitTest tests[] = {
+        cmocka_unit_test(test_init_LIS3DHTR),
+        cmocka_unit_test(test_init_LIS3DHTR_ERROR_RETURN),
+        cmocka_unit_test(test_readReg_zero_return),
+    };
 
     return cmocka_run_group_tests(tests, NULL, NULL);
 }
