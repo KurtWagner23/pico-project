@@ -1,13 +1,12 @@
 #ifndef MOCKS_H
 #define MOCKS_H
 
-#include <cmocka.h>
 #include <setjmp.h>
 #include <stdarg.h>
 #include <stddef.h>
 
 #include "prototypes.h"
-
+#include <cmocka.h>
 /*
     Define here all functions that should be wrapped for testing
     !IMPORTANT! Don't forget to add the functions to the link-flags in
