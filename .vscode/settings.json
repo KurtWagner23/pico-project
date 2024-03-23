@@ -1,5 +1,5 @@
 {
-    "cmake.buildDirectory": "${workspaceFolder}/out/build-bin/",
+    "cmake.buildDirectory": "${workspaceFolder}/build-rp2040",
     "cmake.configureSettings": {
         "CMAKE_BUILD_TYPE": "Debug",
     },
