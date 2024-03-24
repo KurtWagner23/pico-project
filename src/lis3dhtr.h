@@ -29,8 +29,8 @@ Default SCL Pin -> GP21
 Defines
 */
 
-//#define DEFAULT_SDA_PIN 16
-//#define DEFAULT_SCL_PIN 17
+#define DEFAULT_SDA_PIN 16
+#define DEFAULT_SCL_PIN 17
 #define LIS3DHTR_HW_ADDRESS (0x19)
 #define LIS3DHTR_CONVERSIONDELAY (100)
 #define EARTH_GRAVITY 9.80665 // [m/s^2]
