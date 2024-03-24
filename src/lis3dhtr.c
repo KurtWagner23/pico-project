@@ -28,15 +28,6 @@ int init_LIS3DHTR(i2c_inst_t* i2c,
 
     sleep_ms(LIS3DHTR_CONVERSIONDELAY);
 
-    uint baudrate = 400 * 1000;
-    i2c_init(_i2c, baudrate);
-    gpio_set_function(scl_pin, GPIO_FUNC_I2C);
-    gpio_set_function(sda_pin, GPIO_FUNC_I2C);
-
-    // Enable pull-ups on Pin 20 (GP20) and Pin 21 (GP21)
-    gpio_pull_up(scl_pin);
-    gpio_pull_up(sda_pin);
-
     // Normal Mode and 1.25 kHz data rate
     buf[0] = 0x20;
     buf[1] = 0x97;
