@@ -1,13 +1,22 @@
 #ifndef LIS3DHTR_H
 #define LIS3DHTR_H
 
-#include "pico/stdlib.h"
-#include "hardware/i2c.h"
+#include <stdbool.h>
+#include <stdint.h>
 #include <stdio.h>
+// exclude pico libraries when building sw-tests
+// and include prototype functions
+#ifdef SW_TESTS
+#include "../test/prototypes/prototypes.h"
+#else
+#include "hardware/i2c.h"
+#include "pico/stdlib.h"
+#endif
 
 /*
 *
-*   Library for connecting the Seeed LIS3DHTR Acceleration Sensor with I2C interface.
+*   Library for connecting the Seeed LIS3DHTR Acceleration Sensor with I2C
+interface.
 *
 Connections:
 GND -> GND
@@ -29,15 +38,16 @@ Defines
 /*
 Variables and Structs
 */
-
-extern i2c_inst_t *_i2c;
 extern uint8_t _address;
+extern i2c_inst_t* _i2c;
 
 /*
 Function Prototypes
 */
-
-int init_LIS3DHTR(i2c_inst_t *i2c, uint8_t hardwareAddress, uint8_t scl_pin, uint8_t sda_pin);
+int init_LIS3DHTR(i2c_inst_t* i2c,
+                  uint8_t hardwareAddress,
+                  uint8_t scl_pin,
+                  uint8_t sda_pin);
 
 float readData_LIS3DHTR(uint8_t regLow, bool isAccel);
 
@@ -50,5 +60,7 @@ float getAccelerationX_LIS3DHTR(void);
 float getAccelerationY_LIS3DHTR(void);
 
 float getAccelerationZ_LIS3DHTR(void);
+
+uint8_t readReg(uint8_t reg);
 
 #endif // LIS3DHTR_H

@@ -9,11 +9,10 @@
 Variables and Structs
 */
 
-typedef struct
-{
+typedef struct {
     UWORD width;
     UWORD height;
-    UWORD *image;
+    UWORD* image;
 } Image;
 
 extern Image image_lcd;
@@ -26,11 +25,11 @@ int init_lcd(void);
 
 void update_image(void);
 
-void display_text_lcd(int line, char *str);
+void display_text_lcd(int line, char* str);
 
-void display_line_1(char *str);
+void display_line_1(char* str);
 
-void display_line_2(char *str);
+void display_line_2(char* str);
 
 int init_image(void);
 
