@@ -1,8 +1,3 @@
 {
-    "cmake.buildDirectory": "${workspaceFolder}/build-rp2040",
-    "cmake.configureSettings": {
-        "CMAKE_BUILD_TYPE": "Debug",
-    },
-    "cmake.generator": "Unix Makefiles",
     "editor.formatOnSave": true,
 }
