@@ -93,7 +93,7 @@ dht20_values getTemperatureHumidity_dht20() {
 
     // calc_checksum_dht20();
 
-    return calculate_dht20(data);
+    return calculate_dht20();
 }
 
 /******************************************************************************
