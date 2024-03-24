@@ -10,8 +10,6 @@
 #define scl_controller_zero 17
 #define i2c_zero i2c0
 
-i2c_inst_t* _i2c;
-
 // put here every setup code for running only once
 void setup() {
     stdio_init_all();
