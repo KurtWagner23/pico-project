@@ -1,6 +1,6 @@
 #include "lis3dhtr.h"
 
-i2c_inst_t *_i2c;
+//i2c_inst_t *_i2c;
 uint8_t _address;
 
 /******************************************************************************
@@ -24,14 +24,6 @@ int init_LIS3DHTR(i2c_inst_t *i2c, uint8_t hardwareAddress, uint8_t scl_pin, uin
     int error;
 
     sleep_ms(LIS3DHTR_CONVERSIONDELAY);
-
-    i2c_init(_i2c, 400 * 1000);
-    gpio_set_function(scl_pin, GPIO_FUNC_I2C);
-    gpio_set_function(sda_pin, GPIO_FUNC_I2C);
-
-    // Enable pull-ups on Pin 20 (GP20) and Pin 21 (GP21)
-    gpio_pull_up(scl_pin);
-    gpio_pull_up(sda_pin);
 
     // Normal Mode and 1.25 kHz data rate
     buf[0] = 0x20;

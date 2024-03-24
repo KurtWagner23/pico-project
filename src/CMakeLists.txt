@@ -13,6 +13,7 @@ add_executable(${PROJECT_NAME}
     main.c
     lcd.c
     lis3dhtr.c  # acceleration sensor
+    dht20.c     # Temperature & Humidity sensor
 )
 
 
