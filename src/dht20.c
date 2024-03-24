@@ -3,11 +3,11 @@
 #include "hardware/i2c.h"
 #include "pico/stdlib.h"
 #include <math.h>
-
 #include <stdlib.h>
-
 #include <stdbool.h>
 //#include "dht20_test.c"
+//i2c_inst_t *_i2c;
+uint8_t _address_dht20;
 
 uint8_t data[7]; // register for dht20
 
@@ -36,21 +36,19 @@ void resetRegisters() {
 function :	Public function for initializing DHT20 sensor
 parameter:  -
 ******************************************************************************/
-int dht20_init() {
+int init_dht20(i2c_inst_t *i2c, uint8_t hardwareAddress, uint8_t scl_pin, uint8_t sda_pin) {
+//int init_dht20() {
+  _i2c = i2c;
+  _address_dht20 = hardwareAddress;
+
+  uint8_t buf[7];
 
   sleep_ms(1500);
-  i2c_init(i2c0, 400 * 1000);
-
-   gpio_set_function(Default_SDA_PIN, GPIO_FUNC_I2C);   //Default_SDA_PIN 16
-  gpio_set_function(Default_SCL_PIN, GPIO_FUNC_I2C);   //Default_SCL_PIN 17
-
-  gpio_pull_up(Default_SCL_PIN);
-  gpio_pull_up(Default_SDA_PIN);
 
  //0x71 113
-	uint8_t buf[1] = {0x71};
-  i2c_write_blocking(i2c_default, DHT20_ADDR, buf , 1, true);
-  i2c_read_blocking(i2c_default, DHT20_ADDR, buf, 1, false);
+	buf[1] = DHT20_STATUS_WORD;
+  i2c_write_blocking(_i2c, _address_dht20, buf , 1, true);
+  i2c_read_blocking(_i2c, _address_dht20, buf, 1, false);
 
   if (buf[0] != 24) {
     printf("init fail%x\n", buf[0]);
@@ -65,11 +63,17 @@ int dht20_init() {
 function :	Internal function for DHT20 status word (0x18)
 parameter:  status
 ******************************************************************************/
-uint8_t dht20_readStatus() {
+uint8_t readData_dht20(uint8_t reg0, uint8_t reg1, uint8_t reg2) {
+  
+  data[0]= reg0;
+  data[1]= reg1;
+  data[2]= reg2;
+
+  i2c_write_blocking(_i2c, _address_dht20, data, 3, false);
   bool success = false;
   for (int i = 0; i < 5; i++) {
     sleep_ms(80);
-    i2c_read_blocking(i2c_default, DHT20_ADDR, data, 1, true);
+    i2c_read_blocking(_i2c, _address_dht20, data, 1, true);
     success = (data[0] & 0x80) == 0x0;
     if (success) {
       break;
@@ -79,21 +83,22 @@ uint8_t dht20_readStatus() {
     return EXIT_FAILURE;
     }
   }
+  i2c_read_blocking(_i2c, _address_dht20, data, 7, false);
+
+  
 }
 
 /******************************************************************************
 function :	Public function for requesting data from sensor
 parameter:  values (hum, temp)
 ******************************************************************************/
-dht20_values dht20_read() {
-  data[0] = 172;
-  data[1] = 51;
-  data[2] = 0;
+dht20_values getTemperatureHumidity_dht20() {
+  
+  readData_dht20(TRIGGER_MESSUREMENT, TRIGGER_MESSUREMENT_PARAM1, TRIGGER_MESSUREMENT_PARAM2);
+  
+  //calc_checksum_dht20();
 
-  i2c_write_blocking(i2c0, DHT20_ADDR, data, 3, false);
-  dht20_readStatus();
-  i2c_read_blocking(i2c0, DHT20_ADDR, data, 7, false);
-  return dht20_convert(data);
+  return calculate_dht20(data);
 }
 
 /******************************************************************************
@@ -101,7 +106,18 @@ function :	Internal function to check the received bits from DHT20 via CRC
 parameter:  
 call from main via dht_checksum()
 ******************************************************************************/
-unsigned char dht20_checksum(){
+unsigned char calc_checksum_dht20(uint8_t ele1, uint8_t ele2, uint8_t ele3, uint8_t ele4, 
+          uint8_t ele5, uint8_t ele6, uint8_t ele7, uint8_t result){
+
+    data[0] =ele1;
+    data[1]=ele2;
+    data[2]=ele3;
+    data[3]=ele4;
+    data[4]=ele5;
+    data[5]=ele6;
+    data[6]=ele7;
+    int res=result;
+  
   printf("checksum executed\n");
   unsigned char crc = 0xFF; // Initialize CRC with 0xFF
 
@@ -116,15 +132,25 @@ unsigned char dht20_checksum(){
             }
         }
     }
+    if (crc = res){
     printf("dht20_checksum = %x\n", crc);
     return crc;
+    }
+    else return -1;
+    
+}
+
+int get_checksum_dht20(){
+
+  calc_checksum_dht20(28,132,194,115,236,30,153, 0);
+  calc_checksum_dht20(28,39,172,186,35,230,40,0);
 }
 
 /******************************************************************************
 function :	Internal function for converting from bytes to numerial
 parameter:  values (hum, temp)
 ******************************************************************************/
-dht20_values dht20_convert(uint8_t data[7]) {
+dht20_values calculate_dht20() {
   
   int humidity_raw = (data[1] << 12) | (data[2] << 8) | (data[3] >> 4);
   int temperature_raw = ((data[3] << 16) | (data[4] << 8) | data[5]) & 0xfffff;
