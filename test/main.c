@@ -1,6 +1,7 @@
 #include "mocks.h"
 
 // include file with functions to test
+#include "dht20.h"
 #include "lis3dhtr.h"
 
 /*
