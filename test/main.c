@@ -48,8 +48,7 @@ static void test_init_LIS3DHTR_ERROR_RETURN(void** state) {
     return_value = init_LIS3DHTR(
         i2c, LIS3DHTR_HW_ADDRESS, DEFAULT_SCL_PIN, DEFAULT_SDA_PIN);
 
-    // here error to test failing pipeline
-    assert_int_equal(return_value, -3);
+    assert_int_equal(return_value, -1);
 }
 
 static void test_readReg_zero_return(void** state) {
