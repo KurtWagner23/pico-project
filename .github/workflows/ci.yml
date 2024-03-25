@@ -1,0 +1,23 @@
+name: Continuous Integration
+
+on:
+  push:
+    branches:
+      - '*'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Run custom build and test script
+        run: |
+          ./test-runner.sh
+          # Check the exit status of the tests and fail the workflow if they fail
+          if [ $? -ne 0 ]; then
+            echo "Tests failed. Failing the workflow."
+            exit 1
+          fi

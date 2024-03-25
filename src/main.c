@@ -54,7 +54,7 @@ int main() {
                 getAccelerationZ_LIS3DHTR());
         display_text_lcd(1, acc);
 
-        Values = getTemperatureHumidity_dht20(Values);
+        Values = getTemperatureHumidity_dht20();
         sprintf(
             temp, "Temp: %.2f oC,  Hum: %.2f g/m^3", Values.temp, Values.hum);
         display_text_lcd(2, temp);
