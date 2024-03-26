@@ -8,6 +8,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        
+      - name: Use Ninja without installing from Package Manager
+        uses: seanmiddleditch/gha-setup-ninja@master
 
       - name: Test-Runner Script
         run: |
