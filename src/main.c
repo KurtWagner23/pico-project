@@ -1,4 +1,3 @@
-#include "Debug.h"
 #include "dht20.h"
 #include "lcd.h"
 #include "lis3dhtr.h"

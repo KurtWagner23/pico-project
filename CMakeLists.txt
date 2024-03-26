@@ -1,15 +1,16 @@
 # Top-level CMakeLists.txt
 
-cmake_minimum_required(VERSION 3.17)
+cmake_minimum_required(VERSION 3.20)
 
 if(CMAKE_BUILD_TYPE MATCHES Debug)
     add_definitions(-DDEBUG)
 endif()
 
-# Define a CMake variable to control the inclusion of certain headers
-option(SW_TESTS "Exclude certain headers" OFF)
+# Variable controls whether Unit-Tests or Binaries for RPI Pico get configured
 OPTION(BUILD_TESTS "Build the test binary" OFF)
 
+# variable for including certain headers, when defined
+option(SW_TESTS "Exclude certain headers" OFF)
 if(SW_TESTS)
     add_compile_definitions(SW_TESTS)
 endif()
@@ -26,17 +27,13 @@ else()
   pico_sdk_init()
   enable_language(C ASM)
   set(CMAKE_C_STANDARD 11)
-  # Add a compilation subdirectory
   add_subdirectory(src)
-  #add_subdirectory(test)
+  # Include directories from external LCD-Driver library
   add_subdirectory(external/Pico-LCD-1.14/c/lib/Infrared)
   add_subdirectory(external/Pico-LCD-1.14/c/lib/Icm20948)
   add_subdirectory(external/Pico-LCD-1.14/c/lib/LCD)
   add_subdirectory(external/Pico-LCD-1.14/c/lib/Fonts)
   add_subdirectory(external/Pico-LCD-1.14/c/lib/Config)
   add_subdirectory(external/Pico-LCD-1.14/c/lib/GUI)
-  #add_subdirectory(external/Pico-LCD-1.14/c/examples)
-
-
 endif()
 

@@ -1,7 +1,6 @@
 #!/bin/bash
 
-cmake -B build-tests -S . -D BUILD_TESTS=ON -D SW_TESTS=ON
-cd build-tests
-make -j6
-cd bin
+cmake --preset "rp2040"
+cmake --build --preset "rp2040"
+cd build/test/bin
 ./tests
