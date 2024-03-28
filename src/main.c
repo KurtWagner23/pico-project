@@ -1,9 +1,10 @@
-#include "dht20.h"
-#include "lcd.h"
-#include "lis3dhtr.h"
 #include "pico/stdlib.h"
 #include <stdio.h>
 #include <stdlib.h>
+
+#include "dht20.h"
+#include "lcd.h"
+#include "lis3dhtr.h"
 
 #define sda_controller_zero 16
 #define scl_controller_zero 17
@@ -28,6 +29,7 @@ void setup() {
     init_lcd();
 
     init_dht20(i2c_zero, DHT20_ADDR, scl_controller_zero, sda_controller_zero);
+    sleep_ms(500);
     init_LIS3DHTR(i2c_zero,
                   LIS3DHTR_HW_ADDRESS,
                   scl_controller_zero,
@@ -44,10 +46,10 @@ int main() {
     gpio_put(PICO_DEFAULT_LED_PIN, 1);
 
     dht20_values Values;
-    // main loop
+    //  main loop
     while (1) {
         sprintf(acc,
-                "Acc x:%.2f, y:%.2f, z:%.2f",
+                "Acc x:%.2f,      y:%.2f, z:%.2f",
                 getAccelerationX_LIS3DHTR(),
                 getAccelerationY_LIS3DHTR(),
                 getAccelerationZ_LIS3DHTR());
@@ -58,6 +60,6 @@ int main() {
             temp, "Temp: %.2f oC,  Hum: %.2f g/m^3", Values.temp, Values.hum);
         display_text_lcd(2, temp);
 
-        sleep_ms(1000);
+        sleep_ms(500);
     }
 }

@@ -8,7 +8,9 @@
             "generator": "Ninja",
             "binaryDir": "${sourceDir}/build/${presetName}",
             "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Debug"
+                "CMAKE_BUILD_TYPE": "Debug",
+                "BUILD_TESTS": "OFF",
+                "SW_TESTS": "OFF"
             }
         },
         {
@@ -18,9 +20,9 @@
             "generator": "Ninja",
             "binaryDir": "${sourceDir}/build/${presetName}",
             "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release",
                 "BUILD_TESTS": "ON",
-                "SW_TESTS": "ON",
-                "CMAKE_BUILD_TYPE": "Release"
+                "SW_TESTS": "ON"
             }
         }
     ],

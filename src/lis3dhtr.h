@@ -21,8 +21,8 @@ interface.
 Connections:
 GND -> GND
 VCC -> 3V3
-Default SDA Pin -> GP20
-Default SCL Pin -> GP21
+Default SDA Pin -> GP16
+Default SCL Pin -> GP17
 */
 
 /*
@@ -38,8 +38,8 @@ Defines
 /*
 Variables and Structs
 */
-extern uint8_t _address;
-extern i2c_inst_t* _i2c;
+extern uint8_t _address_lis3;
+extern i2c_inst_t* _i2c_lis3;
 
 /*
 Function Prototypes

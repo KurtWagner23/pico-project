@@ -1,6 +1,5 @@
 #ifndef DHT20_H
-
-#define DHT_20
+#define DHT20_H
 
 #include <math.h>
 #include <stdbool.h>
@@ -43,7 +42,7 @@ typedef struct {
     float hum;
 } dht20_values;
 
-extern i2c_inst_t* _i2c;
+extern i2c_inst_t* _i2c_dht20;
 extern uint8_t _address_dht20;
 
 /*
@@ -74,4 +73,4 @@ int get_checksum_dht20(void);
 
 // void test_dht20_checksum();
 
-#endif
+#endif // DHT20_H

@@ -6,15 +6,15 @@ if(CMAKE_BUILD_TYPE MATCHES Debug)
     add_definitions(-DDEBUG)
 endif()
 
-# Variable controls whether Unit-Tests or Binaries for RPI Pico get configured
-OPTION(BUILD_TESTS "Build the test binary" OFF)
 
 # variable for including certain headers, when defined
 option(SW_TESTS "Exclude certain headers" OFF)
 if(SW_TESTS)
-    add_compile_definitions(SW_TESTS)
+  add_compile_definitions(SW_TESTS)
 endif()
 
+# Variable controls whether Unit-Tests or Binaries for RPI Pico get configured
+OPTION(BUILD_TESTS "Build the test binary" OFF)
 if(BUILD_TESTS)
   project(test)
   enable_language(C ASM)

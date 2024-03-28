@@ -1,7 +1,7 @@
 #include "dht20.h"
 
 // #include "dht20_test.c"
-// i2c_inst_t *_i2c;
+i2c_inst_t* _i2c_dht20;
 uint8_t _address_dht20;
 
 uint8_t data[7]; // register for dht20
@@ -26,6 +26,7 @@ void resetRegisters() {
   sleep_ms(100);
 }
 */
+
 /******************************************************************************
 function :	Public function for initializing DHT20 sensor
 parameter:  -
@@ -35,7 +36,7 @@ int init_dht20(i2c_inst_t* i2c,
                uint8_t scl_pin,
                uint8_t sda_pin) {
     // int init_dht20() {
-    _i2c = i2c;
+    _i2c_dht20 = i2c;
     _address_dht20 = hardwareAddress;
 
     uint8_t buf[7];
@@ -44,8 +45,8 @@ int init_dht20(i2c_inst_t* i2c,
 
     // 0x71 113
     buf[1] = DHT20_STATUS_WORD;
-    i2c_write_blocking(_i2c, _address_dht20, buf, 1, true);
-    i2c_read_blocking(_i2c, _address_dht20, buf, 1, false);
+    i2c_write_blocking(_i2c_dht20, _address_dht20, buf, 1, true);
+    i2c_read_blocking(_i2c_dht20, _address_dht20, buf, 1, false);
 
     if (buf[0] != 24) {
         printf("init fail%x\n", buf[0]);
@@ -65,11 +66,11 @@ uint8_t readData_dht20(uint8_t reg0, uint8_t reg1, uint8_t reg2) {
     data[1] = reg1;
     data[2] = reg2;
 
-    i2c_write_blocking(_i2c, _address_dht20, data, 3, false);
+    i2c_write_blocking(_i2c_dht20, _address_dht20, data, 3, false);
     bool success = false;
     for (int i = 0; i < 5; i++) {
         sleep_ms(80);
-        i2c_read_blocking(_i2c, _address_dht20, data, 1, true);
+        i2c_read_blocking(_i2c_dht20, _address_dht20, data, 1, true);
         success = (data[0] & 0x80) == 0x0;
         if (success) {
             break;
@@ -79,7 +80,7 @@ uint8_t readData_dht20(uint8_t reg0, uint8_t reg1, uint8_t reg2) {
             return EXIT_FAILURE;
         }
     }
-    i2c_read_blocking(_i2c, _address_dht20, data, 7, false);
+    i2c_read_blocking(_i2c_dht20, _address_dht20, data, 7, false);
 }
 
 /******************************************************************************
