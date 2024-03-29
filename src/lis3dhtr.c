@@ -1,7 +1,7 @@
 #include "lis3dhtr.h"
 
-uint8_t _address;
-i2c_inst_t* _i2c;
+uint8_t _address_lis3;
+i2c_inst_t* _i2c_lis3;
 
 /******************************************************************************
 function :	Initialize LIS3DHTR Sensor
@@ -18,8 +18,8 @@ int init_LIS3DHTR(i2c_inst_t* i2c,
                   uint8_t hardwareAddress,
                   uint8_t scl_pin,
                   uint8_t sda_pin) {
-    _i2c = i2c;
-    _address = hardwareAddress;
+    _i2c_lis3 = i2c;
+    _address_lis3 = hardwareAddress;
 
     uint8_t buf[2];
 
@@ -31,21 +31,21 @@ int init_LIS3DHTR(i2c_inst_t* i2c,
     // Normal Mode and 1.25 kHz data rate
     buf[0] = 0x20;
     buf[1] = 0x97;
-    error = i2c_write_blocking(_i2c, _address, buf, 2, false);
+    error = i2c_write_blocking(_i2c_lis3, _address_lis3, buf, 2, false);
     if (error == PICO_ERROR_GENERIC)
         return_value = -1;
 
     // Turn block data update on (for temperature sensing)
     buf[0] = 0x23;
     buf[1] = 0x80;
-    error = i2c_write_blocking(_i2c, _address, buf, 2, false);
+    error = i2c_write_blocking(_i2c_lis3, _address_lis3, buf, 2, false);
     if (error == PICO_ERROR_GENERIC)
         return_value = -1;
 
     // Turn ADC on
     buf[0] = 0x1F;
     buf[1] = 0xC0;
-    error = i2c_write_blocking(_i2c, _address, buf, 2, false);
+    error = i2c_write_blocking(_i2c_lis3, _address_lis3, buf, 2, false);
     if (error == PICO_ERROR_GENERIC)
         return_value = -1;
 
@@ -90,8 +90,14 @@ float readData_LIS3DHTR(uint8_t regLow, bool isAccel) {
     uint16_t raw_accel;
     uint8_t regHigh = regLow | 0x01;
 
-    lsb = readReg(regLow);
-    msb = readReg(regHigh);
+    // lsb = readReg(regLow);
+    // msb = readReg(regHigh);
+
+    i2c_write_blocking(_i2c_lis3, _address_lis3, &regLow, 1, true);
+    i2c_read_blocking(_i2c_lis3, _address_lis3, &lsb, 1, false);
+
+    i2c_write_blocking(_i2c_lis3, _address_lis3, &regHigh, 1, true);
+    i2c_read_blocking(_i2c_lis3, _address_lis3, &msb, 1, false);
 
     raw_accel = (msb << 8) | lsb;
 
@@ -107,8 +113,8 @@ return:   Returns one byte of read date
 uint8_t readReg(uint8_t reg) {
     uint8_t byte;
     // read register
-    i2c_write_blocking(_i2c, _address, &reg, 1, true);
-    i2c_read_blocking(_i2c, _address, &byte, 1, false);
+    i2c_write_blocking(_i2c_lis3, _address_lis3, &reg, 1, true);
+    i2c_read_blocking(_i2c_lis3, _address_lis3, &byte, 1, false);
 
     return byte;
 }

@@ -20,6 +20,8 @@ add_cmocka_test(${EXECUTABLE_NAME}
                 LINK_LIBRARIES src cmocka-static
 )
 
+# add_executable(${EXECUTABLE_NAME} main.c)
+# target_link_libraries(${EXECUTABLE_NAME} mocks src cmock-static)
 set_property(TARGET ${EXECUTABLE_NAME}
              PROPERTY LINK_FLAGS
              "${DEFAULT_LINK_FLAGS} -Wl,--wrap=i2c_write_blocking,--wrap=i2c_read_blocking"
@@ -34,3 +36,9 @@ set_target_properties(  ${EXECUTABLE_NAME}
 
 include_directories(${EXECUTABLE_NAME} ../src)
 include_directories(${EXECUTABLE_NAME} prototypes)
+
+
+enable_testing()
+
+
+add_test(test_lis3 ${EXECUTABLE_NAME})

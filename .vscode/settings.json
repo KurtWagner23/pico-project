@@ -1,3 +1,39 @@
 {
     "editor.formatOnSave": true,
+    "cmake.options.statusBarVisibility": "visible",
+    "cmake.options.advanced": {
+        "buildPreset": {
+            "statusBarVisibility": "hidden"
+        },
+        "testPreset": {
+            "statusBarVisibility": "hidden"
+        },
+        "build": {
+            "statusBarVisibility": "icon"
+        },
+        "debug": {
+            "statusBarVisibility": "hidden"
+        },
+        "folder": {
+            "statusBarVisibility": "hidden"
+        },
+        "ctest": {
+            "statusBarVisibility": "hidden"
+        },
+        "workflow": {
+            "statusBarVisibility": "hidden"
+        },
+        "cpack": {
+            "statusBarVisibility": "hidden"
+        },
+        "workflowPreset": {
+            "statusBarVisibility": "hidden"
+        },
+        "packagePreset": {
+            "statusBarVisibility": "hidden"
+        },
+        "buildTarget": {
+            "statusBarVisibility": "hidden"
+        }
+    },
 }

@@ -1,8 +1,5 @@
 #include "prototypes.h"
 
-uint i2c_init(i2c_inst_t* inst, uint baudrate) {
-}
-
 int i2c_write_blocking(i2c_inst_t* i2c,
                        uint8_t addr,
                        const uint8_t* src,

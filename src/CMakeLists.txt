@@ -1,7 +1,6 @@
 # src/CMakeLists.txt
 
-# Add a header directories
-#include_directories(../external/Pico-LCD-1.14/c/examples)
+
 include_directories(../external/Pico-LCD-1.14/c/lib/Config)
 include_directories(../external/Pico-LCD-1.14/c/lib/GUI)
 include_directories(../external/Pico-LCD-1.14/c/lib/Icm20948)
@@ -12,7 +11,7 @@ include_directories(../external/Pico-LCD-1.14/c/lib/Infrared)
 add_executable(${PROJECT_NAME}
     main.c
     lcd.c
-    lis3dhtr.c  # acceleration sensor
+    lis3dhtr.c  # Acceleration sensor
     dht20.c     # Temperature & Humidity sensor
 )
 
@@ -24,7 +23,7 @@ set_target_properties( ${PROJECT_NAME}
     RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
 )
 
-# Add pico_stdlib library which aggregates commonly used features
+# Link Pico-specific and LCD libraries to target
 target_link_libraries(${PROJECT_NAME} PUBLIC 
     # pico libraries
     pico_stdlib
@@ -42,4 +41,4 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
 pico_add_extra_outputs(${PROJECT_NAME})
 
 pico_enable_stdio_usb(${PROJECT_NAME} 1)
-pico_enable_stdio_uart(${PROJECT_NAME} 0)
+pico_enable_stdio_uart(${PROJECT_NAME} 1)

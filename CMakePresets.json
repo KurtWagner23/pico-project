@@ -1,0 +1,44 @@
+{
+    "version": 2,
+    "configurePresets": [
+        {
+            "name": "rp2040",
+            "displayName": "build-rp2040",
+            "description": "Configuration for building binaries for rp2040",
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/build/${presetName}",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "BUILD_TESTS": "OFF",
+                "SW_TESTS": "OFF"
+            }
+        },
+        {
+            "name": "test",
+            "displayName": "Unit Testing",
+            "description": "Configuration for Unit Tests using cmocka",
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/build/${presetName}",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release",
+                "BUILD_TESTS": "ON",
+                "SW_TESTS": "ON"
+            }
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "rp2040",
+            "displayName": "Build for rp2040",
+            "configurePreset": "rp2040"
+        },
+        {
+            "name": "test",
+            "displayName": "Build Tests",
+            "configurePreset": "test",
+            "targets": [
+                "tests"
+            ]
+        }
+    ]
+}
