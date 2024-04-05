@@ -35,10 +35,7 @@
         {
             "name": "test",
             "displayName": "Build Tests",
-            "configurePreset": "test",
-            "targets": [
-                "tests"
-            ]
+            "configurePreset": "test"
         }
     ]
 }
