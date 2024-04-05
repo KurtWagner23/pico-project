@@ -2,13 +2,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "config.h"
 #include "dht20.h"
 #include "lcd.h"
 #include "lis3dhtr.h"
-
-#define sda_controller_zero 16
-#define scl_controller_zero 17
-#define i2c_zero i2c0
 
 // put here every setup code for running only once
 void setup() {

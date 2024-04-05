@@ -26,6 +26,8 @@ Default SDA Pin -> GP16
 Default SCL Pin -> GP17
 */
 
+#define DEFAULT_SDA_PIN 16
+#define DEFAULT_SCL_PIN 17
 #define DHT20_ADDR (0x38)
 #define STATUS_WORD (0x71)
 #define POLYNOMIAL (0x31)
@@ -33,6 +35,9 @@ Default SCL Pin -> GP17
 #define TRIGGER_MESSUREMENT (0xAC)
 #define TRIGGER_MESSUREMENT_PARAM1 (0x33)
 #define TRIGGER_MESSUREMENT_PARAM2 (0x00)
+
+#define sda_controller_zero
+#define scl_controller_zero 17
 
 /*
 Variables and Structs

@@ -39,22 +39,34 @@ int init_dht20(i2c_inst_t* i2c,
     _i2c_dht20 = i2c;
     _address_dht20 = hardwareAddress;
 
+    int error;
+    int return_value = 0;
+
     uint8_t buf[7];
+    uint8_t testvar = 113;
 
     sleep_ms(1500);
 
     // 0x71 113
     buf[1] = DHT20_STATUS_WORD;
-    i2c_write_blocking(_i2c_dht20, _address_dht20, buf, 1, true);
-    i2c_read_blocking(_i2c_dht20, _address_dht20, buf, 1, false);
+    // i2c_write_blocking(_i2c_dht20, _address_dht20, buf, 7, true);
+    error = i2c_write_blocking(_i2c_dht20, _address_dht20, buf, 7, true);
+    if (error == PICO_ERROR_GENERIC)
+        return_value = -1;
+    //    i2c_read_blocking(_i2c_dht20, _address_dht20, buf, 7, false);
+    error = i2c_read_blocking(_i2c_dht20, _address_dht20, buf, 7, false);
+    if (error == PICO_ERROR_GENERIC)
+        return_value = -1;
 
+    // if (buf[0] != 24) {
     if (buf[0] != 24) {
         printf("init fail%x\n", buf[0]);
-        return -1;
+        return_value = -1;
+        // return -1;
     }
 
     sleep_ms(10);
-    return 1;
+    return return_value;
 }
 
 /******************************************************************************

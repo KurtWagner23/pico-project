@@ -1,7 +1,7 @@
 #include "mocks.h"
 
 // include file with functions to test
-#include "dht20.h"
+#include "config.h"
 #include "lis3dhtr.h"
 
 /*
@@ -126,6 +126,32 @@ static void test_readData_LIS3DHTR_Acceleration_neg_value(void** state) {
     assert_float_equal(acceleration, -9.81, 0.5);
 }
 
+static void test_i2c_read_blocking(void** state) {
+    // (void)state; // Unused parameter
+
+    uint8_t expected_addr = 0x42;
+    size_t expected_len = 2;
+    uint8_t mock_buffer[2] = {24, 22};
+    uint8_t actual_buffer[2];
+    int result;
+
+    // Set up the expected values
+    expect_value(__wrap_i2c_read_blocking, addr, expected_addr);
+    expect_value(__wrap_i2c_read_blocking, len, expected_len);
+
+    // Provide the mock buffer to be returned
+    will_return(__wrap_i2c_read_blocking, mock_buffer[0]);
+    will_return(__wrap_i2c_read_blocking, mock_buffer[1]);
+
+    // Call the function under test
+    result = i2c_read_blocking(
+        NULL, expected_addr, actual_buffer, expected_len, false);
+    //  Check the result and buffer contents
+    assert_int_equal(mock_buffer[0], actual_buffer[0]);
+    assert_int_equal(mock_buffer[1], actual_buffer[1]);
+    assert_int_equal(expected_len, result);
+}
+
 int main(void) {
     const struct CMUnitTest tests[] = {
         cmocka_unit_test(test_init_LIS3DHTR),
@@ -133,6 +159,7 @@ int main(void) {
         cmocka_unit_test(test_readReg_zero_return),
         cmocka_unit_test(test_readData_LIS3DHTR_Acceleration_pos_value),
         cmocka_unit_test(test_readData_LIS3DHTR_Acceleration_neg_value),
+        cmocka_unit_test(test_i2c_read_blocking),
     };
 
     return cmocka_run_group_tests(tests, NULL, NULL);
