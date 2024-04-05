@@ -7,14 +7,12 @@ include_directories(../external/Pico-LCD-1.14/c/lib/Icm20948)
 include_directories(../external/Pico-LCD-1.14/c/lib/LCD)
 include_directories(../external/Pico-LCD-1.14/c/lib/Infrared)
 
+# include all files inside source folder into executable
+file(GLOB SOURCE_FILES ${PROJECT_SOURCE_DIR}/src/*.c)
 
 add_executable(${PROJECT_NAME}
-    main.c
-    lcd.c
-    lis3dhtr.c  # Acceleration sensor
-    dht20.c     # Temperature & Humidity sensor
+    ${SOURCE_FILES}
 )
-
 
 set_target_properties( ${PROJECT_NAME}
     PROPERTIES
