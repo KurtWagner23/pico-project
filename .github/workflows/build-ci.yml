@@ -1,5 +1,5 @@
-name: Automated Testing
-run-name: ${{ github.actor }} is running automated Unit-Tests
+name: CMake
+run-name: ${{ github.actor }} is running CMake build-pipeline for RP2040
 on: [push]
 
 jobs:
@@ -8,13 +8,18 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: arm-none-eabi-gcc
+        uses: ryanwinter/arm-none-eabi-gcc@master
+        with:
+          release: '10-2021.10'
         
       - name: Use Ninja without installing from Package Manager
         uses: seanmiddleditch/gha-setup-ninja@master
 
-      - name: Test-Runner Script
+      - name: Configure and Compile
         run: |
-          ./test-runner.sh
+          ./build-rp2040.sh
           # Check the exit status of the tests and fail the workflow if they fail
           if [ $? -ne 0 ]; then
             echo "Tests failed. Failing the workflow."
