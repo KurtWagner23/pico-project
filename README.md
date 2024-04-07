@@ -1,7 +1,8 @@
 # Pico Project
 **Template project for developing software for Raspberry Pi Pico in C.**
 
-![Auoomated Testing](https://github.com/KurtWagner23/pico-project/actions/workflows/ci.yml/badge.svg) ![Automated CMake Build](https://github.com/KurtWagner23/pico-project/actions/workflows/build-ci.yml/badge.svg)
+![Automated CMake Build](https://github.com/KurtWagner23/pico-project/actions/workflows/build-ci.yml/badge.svg)
+![Auoomated Testing](https://github.com/KurtWagner23/pico-project/actions/workflows/ci.yml/badge.svg) 
 
 ## Getting started/Prerequisites :rocket:
 

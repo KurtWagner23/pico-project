@@ -1,20 +1,20 @@
-name: CMake
+name: CMake Build
 run-name: ${{ github.actor }} is running CMake build-pipeline for RP2040
 on: [push]
 
 jobs:
-  Test-Runner:
+  CMake-Build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: arm-none-eabi-gcc
+      - name: Installing arm-none-eabi-gcc
         uses: ryanwinter/arm-none-eabi-gcc@master
         with:
           release: '10-2021.10'
         
-      - name: Use Ninja without installing from Package Manager
+      - name: Installing Ninja
         uses: seanmiddleditch/gha-setup-ninja@master
 
       - name: Configure and Compile
