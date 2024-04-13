@@ -24,21 +24,33 @@ sudo apt install cmake gcc-arm-none-eabi libnewlib-arm-none-eabi libstdc++-arm-n
 ```
 
 ### Windows and MacOS
+- WSL:
+For Windows it is recommended to use WSL and following Linux instructions.  
+- Other:
 Please refer to the [Official getting started PDF](https://datasheets.raspberrypi.com/pico/getting-started-with-pico.pdf) from Raspberry Pi to get started with MacOS in chapter **9.1** and Windows in chapter **9.2**.  
-
-For debugging please follow the instructions in chapter **Appendix A** for Windows and MacOS.
+- Debugging:
+For debugging please follow the instructions in chapter **Appendix A** for Windows and MacOS. For **WSL** you can follow the instructions below.
 
 ## How To Build Template-Project :hammer:
 
-### How To Connect RPI Pico and Connect Sensors for Template-Project
-- [ ] TODO: Here a picture of connections
+### How To Connect RPI Pico and Sensors for Template-Project
+- SDA: to GP16 on the right Pico
+- SCL: to GP17 on the right Pico
+- VCC: to 3V3 on the right Pico
+- GDN: to GND on the right Pico
+- Connnect both LIS3DHTR and DHT20 Sensor to I2C-Bus.
+- Connect both Picos like this: (Pico on the left is Debug Probe)
+![alt text](assets/PicoProbeWiring.png)
+*Image Source: [Raspberry Pi]([source_link_here](https://datasheets.raspberrypi.com/pico/getting-started-with-pico.pdf))*
 
 ### Building Template in Visual Studio Code
-In Visual Studio Code, when you open the cloned project folder, CMake Tools Extension will automatically detect all CMake configurations in CMakePresets.json and configure the project for you.  
-You can choose between ***Unit-Testing***  and ***build-rp2040*** configuration on the status bar at the bottom. By clicking on the **Gear-Symbol** you can compile selected configuration.  
-For ***Unit-Testing*** you can also click on the **Arrow-Symbol** to execute the Tests in the command-line.  
-**Note:** This is not working for the ***build-rp2040*** configuration because we are compiling for the Raspberry Pi Pico and cannot execute the binary on our Host-Machine!!!
+  
+![alt text](assets/VS-Code.png)
 
+- :hammer_and_wrench: Selecting Preset Configuration
+- :gear: Building selectedt configuration
+- :arrow_forward: Executing selected target **(Only for Unit Testing Preset)**
+- [main]: Selecting launch target **(Only for Unit Testing Preset)** 
 
 ### Building RPI Pico Executable From Command-Line
 When building from the command-line you have to execute
@@ -52,7 +64,7 @@ or execute the build script
 ``` 
 in order to configure and compile the project executable for the Raspberry Pi Pico. 
  
-### Flashing Raspberry Pi Pico
+### Flashing Raspberry Pi Pico (Without Debug Probe)
 After compiling, the executable will be located in **build/rp2040/bin/** folder. 
 Plugin the Pico into your PC while pressing and holding the BOOTSEL-Button. The Pico will be mounted as a external drive. Then you can drag-and-drop **main.uf2** located in the build-folder onto the mounted drive. 
 
@@ -93,11 +105,11 @@ make -j4
 sudo make install
 sudo update-alternatives --install /usr/local/bin/usbip usbip $(command -v ls /usr/lib/linux-tools/*/usbip | tail -n1) 20
 ```
-- Connect both Picos like in the diagram on page 62 in the [Official getting started PDF](https://datasheets.raspberrypi.com/pico/getting-started-with-pico.pdf)
 - Open a new terminal window and type: ```sudo openocd -f interface/cmsis-dap.cfg -c "adapter speed 5000" -f target/rp2040.cfg -s tcl```
   - This will start openocd and opens a port for gdb to listen to.
-- Then you can click in the Debug-Tab in VS-Code on the green arrow and select **Pico Debug**. This will flash the Pico over PicoProbe and starts debugging, when you set breakpoints. Otherwise it will only flash without debugging.
-
+![alt text](assets/Pico-Debug.png)
+- :arrow_forward: Start Debugging and Automatic Flashing
+- **Important**: before starting to debug you have to build manually with the build-script or [build with VS-Code](#building-template-in-visual-studio-code)
 
 ## How To Use Template For Your Own Projects
 - [ ] TODO: Add instructions on where to add libraries and how to implement Unit-Tests
