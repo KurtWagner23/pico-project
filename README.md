@@ -47,10 +47,10 @@ For debugging please follow the instructions in chapter **Appendix A** for Windo
   
 ![alt text](assets/VS-Code.png)
 
-- :hammer_and_wrench:: Selecting Preset Configuration
-- :gear:: Building selected configuration
-- :arrow_forward:: Executing selected target **(Only for Unit Testing Preset)**
-- [main]: Selecting launch target **(Only for Unit Testing Preset)** 
+- :hammer_and_wrench: Selecting Preset Configuration
+- :gear: Building selected configuration
+- :arrow_forward: Executing selected target **(Only for Unit Testing Preset)**
+- [main] Selecting launch target **(Only for Unit Testing Preset)** 
 
 ### Building RPI Pico Executable From Command-Line
 When building from the command-line you have to execute
@@ -108,7 +108,7 @@ sudo update-alternatives --install /usr/local/bin/usbip usbip $(command -v ls /u
 - Open a new terminal window and type: ```sudo openocd -f interface/cmsis-dap.cfg -c "adapter speed 5000" -f target/rp2040.cfg -s tcl```
   - This will start openocd and opens a port for gdb to listen to.
 ![alt text](assets/Pico-Debug.png)
-- :arrow_forward:: Start Debugging and Automatic Flashing
+- :arrow_forward: Start Debugging and Automatic Flashing
 - **Important**: before starting to debug you have to build manually with the build-script or [build with VS-Code](#building-template-in-visual-studio-code)
 
 ## How To Use Template For Your Own Projects
