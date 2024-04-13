@@ -48,8 +48,8 @@ For debugging please follow the instructions in chapter **Appendix A** for Windo
 ![alt text](assets/VS-Code.png)
 
 - :hammer_and_wrench: Selecting Preset Configuration
-- :gear: Building selected configuration
-- :arrow_forward: Executing selected target **(Only for Unit Testing Preset)**
+- :gear: Building selected Preset Configuration
+- :arrow_forward: Executing selected launch target **(Only for Unit Testing Preset)**
 - [main] Selecting launch target **(Only for Unit Testing Preset)** 
 
 ### Building RPI Pico Executable From Command-Line
