@@ -8,6 +8,15 @@
 
 Additional documentation: [Official getting started PDF](https://datasheets.raspberrypi.com/pico/getting-started-with-pico.pdf)
 
+### Hardware
+
+- 2 Raspberry Pi Pico
+- Jumper-Cables
+- LIS3DHTR and DHT20 Sensor (Included in Seeed Arduino Sensor Kit)
+- Pico-LCD 1.14 Inch
+- Micro-USB to USB-A Cable
+
+### IDE/Code-Editor
 - Prefered Editor/IDE is [Visual Studio Code](https://code.visualstudio.com/) but it works in every other Editor/IDE.
 
 - Extensions you need to install in Visual Studio Code
@@ -30,6 +39,33 @@ For Windows it is recommended to use WSL and following Linux instructions.
 Please refer to the [Official getting started PDF](https://datasheets.raspberrypi.com/pico/getting-started-with-pico.pdf) from Raspberry Pi to get started with MacOS in chapter **9.1** and Windows in chapter **9.2**.  
 - Debugging:
 For debugging please follow the instructions in chapter **Appendix A** for Windows and MacOS. For **WSL** you can follow the instructions below.
+
+## How To Debug With Pico Probe
+After installing the dependencies from the sections above you can follow these steps on how to configure Debugging and automated flashing for the Raspberry Pi Pico. 
+
+### Building Pico Probe 
+You can either build Pico Probe for a second Raspberry Pi Pico yourself or use the precompiled binary in **PicoProbe-Precompiled** folder.  
+- Flash your second Pico that will be used as PicoProbe with picoprobe_1.uf2
+- Execute these commands in order:
+```shell
+cd ~
+mkdir workspace
+cd workspace
+mkdir pico-build-tools 
+cd pico-build-tools
+git clone https://github.com/raspberrypi/openocd.git --branch rp2040-v0.12.0 --depth=1
+cd openocd
+./bootstrap
+./configure
+make -j4
+sudo make install
+sudo update-alternatives --install /usr/local/bin/usbip usbip $(command -v ls /usr/lib/linux-tools/*/usbip | tail -n1) 20
+```
+- Open a new terminal window and type: ```sudo openocd -f interface/cmsis-dap.cfg -c "adapter speed 5000" -f target/rp2040.cfg -s tcl```
+  - This will start openocd and opens a port for gdb to listen to.
+![alt text](assets/Pico-Debug.png)
+- :arrow_forward: Start Debugging and Automatic Flashing
+- **Important**: before starting to debug you have to build manually with the build-script or [build with VS-Code](#building-template-in-visual-studio-code)
 
 ## How To Build Template-Project :hammer:
 
@@ -84,35 +120,23 @@ ctest -VV
 ```
 The test-runner.sh script is used in GitHub Action Continous-Integration-Pipeline but you can also use this script to compile and execute the Unit-Tests.
 
-## How To Debug With Pico Probe
-After installing the dependencies from the sections above you can follow these steps on how to configure Debugging and automated flashing for the Raspberry Pi Pico. 
-
-### Building Pico Probe 
-You can either build Pico Probe for a second Raspberry Pi Pico yourself or use the precompiled binary in **PicoProbe-Precompiled** folder.  
-- Flash your second Pico that will be used as PicoProbe with picoprobe_1.uf2
-- Execute these commands in order:
-```shell
-cd ~
-mkdir workspace
-cd workspace
-mkdir pico-build-tools 
-cd pico-build-tools
-git clone https://github.com/raspberrypi/openocd.git --branch rp2040-v0.12.0 --depth=1
-cd openocd
-./bootstrap
-./configure
-make -j4
-sudo make install
-sudo update-alternatives --install /usr/local/bin/usbip usbip $(command -v ls /usr/lib/linux-tools/*/usbip | tail -n1) 20
-```
-- Open a new terminal window and type: ```sudo openocd -f interface/cmsis-dap.cfg -c "adapter speed 5000" -f target/rp2040.cfg -s tcl```
-  - This will start openocd and opens a port for gdb to listen to.
-![alt text](assets/Pico-Debug.png)
-- :arrow_forward: Start Debugging and Automatic Flashing
-- **Important**: before starting to debug you have to build manually with the build-script or [build with VS-Code](#building-template-in-visual-studio-code)
 
 ## How To Use Template For Your Own Projects
-- [ ] TODO: Add instructions on where to add libraries and how to implement Unit-Tests
+
+### Adding Source Code
+
+- When adding source code, add all Source- and Header-Files inside the **src** folder. 
+- When you are using specific Raspberry Pi Pico Libraries from the SDK you have to add them into CMakeLists.txt inside **src** folder.
+- You can add external libraries to the **external** folder. **Important**: You must add the library path to CMakeLists.txt inside **src** folder and link them.
+
+### Adding Unit Tests
+
+- Inside the **test** folder are the unit tests for the **LIS3DHTR** and **DHT20** sensors as an example. Copy and paste one of these folders inside the **test** directory and rename to your own written sensor library. 
+- Change the executable name to the name of your sensor inside CMakeLists.txt in the previous copied directory.
+- Add your new created subdirectory to **test/CMakeLists.txt**.
+- When using specific Raspberry Pi Pico functions only available in the SDK you have to declare the function inside the **prototypes.h** so that you can compile. Also write a wrapper function like in **mocks** directory to mock the Raspberry Pi functions. **Important**: Add the wrapped function to the link-flags inside CMakeLists.txt.
+- Look inside the source code for reference.
+- **Don't** change any other CMakeLists.txt files.
 
 
 
