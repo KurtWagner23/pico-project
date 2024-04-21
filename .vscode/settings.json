@@ -18,7 +18,7 @@
             "statusBarVisibility": "hidden"
         },
         "ctest": {
-            "statusBarVisibility": "hidden"
+            "statusBarVisibility": "icon"
         },
         "workflow": {
             "statusBarVisibility": "hidden"
