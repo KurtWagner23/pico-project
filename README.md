@@ -131,6 +131,7 @@ The test-runner.sh script is used in GitHub Action Continous-Integration-Pipelin
 
 ### Adding Unit Tests
 
+- We are using the cmocka test framework. More documentation [here](https://api.cmocka.org/index.html).
 - Inside the **test** folder are the unit tests for the **LIS3DHTR** and **DHT20** sensors as an example. Copy and paste one of these folders inside the **test** directory and rename to your own written sensor library. 
 - Change the executable name to the name of your sensor inside CMakeLists.txt in the previous copied directory.
 - Add your new created subdirectory to **test/CMakeLists.txt**.
