@@ -36,9 +36,6 @@ Default SCL Pin -> GP17
 #define TRIGGER_MESSUREMENT_PARAM1 (0x33)
 #define TRIGGER_MESSUREMENT_PARAM2 (0x00)
 
-#define sda_controller_zero
-#define scl_controller_zero 17
-
 /*
 Variables and Structs
 */
@@ -61,7 +58,7 @@ int init_dht20(i2c_inst_t* i2c,
 
 uint8_t readData_dht20(uint8_t reg0, uint8_t reg1, uint8_t reg2);
 
-dht20_values calculate_dht20(void);
+dht20_values calculate_dht20(int data[7]);
 
 dht20_values getTemperatureHumidity_dht20(void);
 

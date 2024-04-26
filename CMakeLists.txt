@@ -28,6 +28,10 @@ else()
   pico_sdk_init()
   enable_language(C ASM)
   set(CMAKE_C_STANDARD 11)
+  set(CMAKE_CXX_CLANG_TIDY "clang-tidy"
+    -format-style='file';
+    -header-filter=${CMAKE_CURRENT_SOURCE_DIR};
+)
   add_subdirectory(src)
   # Include directories from external LCD-Driver library
   add_subdirectory(external/Pico-LCD-1.14/c/lib/Infrared)
