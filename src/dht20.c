@@ -39,7 +39,7 @@ int init_dht20(i2c_inst_t* i2c,
     _i2c_dht20 = i2c;
     _address_dht20 = hardwareAddress;
 
-    int error;
+    int error = 0;
     int return_value = 0;
 
     uint8_t buf[7];
@@ -93,6 +93,7 @@ uint8_t readData_dht20(uint8_t reg0, uint8_t reg1, uint8_t reg2) {
         }
     }
     i2c_read_blocking(_i2c_dht20, _address_dht20, data, 7, false);
+    return 0;
 }
 
 /******************************************************************************
@@ -106,7 +107,7 @@ dht20_values getTemperatureHumidity_dht20() {
 
     // calc_checksum_dht20();
 
-    return calculate_dht20();
+    return calculate_dht20((int*)data);
 }
 
 /******************************************************************************
@@ -129,7 +130,8 @@ unsigned char calc_checksum_dht20(uint8_t ele1,
     data[4] = ele5;
     data[5] = ele6;
     data[6] = ele7;
-    int res = result;
+    int res = 0;
+    res = result;
 
     printf("checksum executed\n");
     unsigned char crc = 0xFF; // Initialize CRC with 0xFF
@@ -161,14 +163,14 @@ int get_checksum_dht20() {
 function :	Internal function for converting from bytes to numerial
 parameter:  values (hum, temp)
 ******************************************************************************/
-dht20_values calculate_dht20() {
+dht20_values calculate_dht20(int data[7]) {
     int humidity_raw = (data[1] << 12) | (data[2] << 8) | (data[3] >> 4);
     int temperature_raw =
         ((data[3] << 16) | (data[4] << 8) | data[5]) & 0xfffff;
 
     dht20_values my_values;
-    my_values.hum = (humidity_raw / powf(2, 20)) * 100;
-    my_values.temp = ((temperature_raw / powf(2, 20)) * 200) - 50;
+    my_values.hum = ((float)humidity_raw / powf(2, 20)) * 100;
+    my_values.temp = (((float)temperature_raw / powf(2, 20)) * 200) - 50;
 
     return my_values;
 }

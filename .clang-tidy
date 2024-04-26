@@ -1,0 +1,4 @@
+Checks: '-*,bugprone-*,modernize-*,cppcoreguidelines-*, -*-avoid-magic-numbers, -readability-magic-numbers, -clang-diagnostic-error'
+#WarningsAsErrors: '*'
+HeaderFilterRegex: '.*'
+FormatStyle: 'file'

@@ -36,4 +36,7 @@
             "statusBarVisibility": "hidden"
         }
     },
+    "C_Cpp.codeAnalysis.clangTidy.headerFilter": "^(?!.*\\/build\\/).*",
+    "C_Cpp.codeAnalysis.runAutomatically": true,
+    "C_Cpp.codeAnalysis.clangTidy.enabled": true,
 }

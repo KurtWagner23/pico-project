@@ -23,7 +23,7 @@ int init_LIS3DHTR(i2c_inst_t* i2c,
 
     uint8_t buf[2];
 
-    int error;
+    int error = 0;
     int return_value = 0; // Return 0 when no errors occur!
 
     sleep_ms(LIS3DHTR_CONVERSIONDELAY);
@@ -65,7 +65,7 @@ temperature in °C
 float calculateAcceleration_LIS3DHTR(uint16_t rawData, bool isAccel) {
     // Convert with respect to the value being temperature or acceleration
     // reading
-    float scaling;
+    float scaling = .0f;
     float senstivity = 0.004f; // g per unit
 
     if (isAccel) {
@@ -85,9 +85,9 @@ parameter:
 return:   Returns the calculated acceleration in m/s^2 or temperature in °C
 ******************************************************************************/
 float readData_LIS3DHTR(uint8_t regLow, bool isAccel) {
-    uint8_t lsb;
-    uint8_t msb;
-    uint16_t raw_accel;
+    uint8_t lsb = 0;
+    uint8_t msb = 0;
+    uint16_t raw_accel = 0;
     uint8_t regHigh = regLow | 0x01;
 
     // lsb = readReg(regLow);
@@ -111,7 +111,7 @@ parameter:
 return:   Returns one byte of read date
 ******************************************************************************/
 uint8_t readReg(uint8_t reg) {
-    uint8_t byte;
+    uint8_t byte = 0;
     // read register
     i2c_write_blocking(_i2c_lis3, _address_lis3, &reg, 1, true);
     i2c_read_blocking(_i2c_lis3, _address_lis3, &byte, 1, false);
