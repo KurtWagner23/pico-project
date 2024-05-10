@@ -104,6 +104,19 @@ in order to configure and compile the project executable for the Raspberry Pi Pi
 After compiling, the executable will be located in **build/rp2040/bin/** folder. 
 Plugin the Pico into your PC while pressing and holding the BOOTSEL-Button. The Pico will be mounted as a external drive. Then you can drag-and-drop **main.uf2** located in the build-folder onto the mounted drive. 
 
+#### Picotool
+In alternative you can use Raspberry Pi's Picotool. 
+Repository: [Picotool GitHub](https://github.com/raspberrypi/picotool).  
+Install steps:
+- Clone Repository
+- Clone Pico-SDK Repository in the same directory
+- ```cmake -B build -S . -DPICO_SDK_PATH=../pico-sdk```
+- ```cd build && sudo make install ```
+- ```cd .. && sudo cp udev/99-picotool.rules /etc/udev/rules.d/```
+- Then you can use Picotool without sudo
+- Execute ```picotool load -f build/rp2040/bin/main.uf2``` to upload your code to the Pico without pressing the BOOTSEL button.
+- For instructions on other platforms read instructions in GitHub
+
 ### Unit-Testing From Command-Line
 When you want to execute the Unit-Tests from command-line you have to execute
 ```shell
