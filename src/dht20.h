@@ -58,8 +58,16 @@ int init_dht20(i2c_inst_t* i2c,
 
 uint8_t readData_dht20(uint8_t reg0, uint8_t reg1, uint8_t reg2);
 
-dht20_values calculate_dht20(int data[7]);
+dht20_values calculate_dht20(uint8_t data[7]);
 
+/*(uint8_t ele1,
+                             uint8_t ele2,
+                             uint8_t ele3,
+                             uint8_t ele4,
+                             uint8_t ele5,
+                             uint8_t ele6,
+                             uint8_t ele7);
+*/
 dht20_values getTemperatureHumidity_dht20(void);
 
 unsigned char calc_checksum_dht20(uint8_t ele1,

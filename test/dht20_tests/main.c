@@ -119,7 +119,7 @@ static void test_readData_dht20(void** state) {
     assert_int_equal(return_value, expected_return_value);
 }
 static void test_calculate_negative_dht20(void** state) {
-    int data[7] = {28, 132, 154, 211, 235, 119, 108};
+    uint8_t data[7] = {28, 132, 154, 211, 235, 119, 108};
     float expected_Humidity = 55.32;
     float expected_Temperature = -1.00;
 
@@ -129,7 +129,7 @@ static void test_calculate_negative_dht20(void** state) {
     assert_float_equal(result.temp, expected_Temperature, 0.01);
 }
 static void test_calculate_positive_dht20(void** state) {
-    int data[7] = {28, 65, 251, 199, 51, 52, 201, 1};
+    uint8_t data[7] = {28, 65, 251, 199, 51, 52, 201, 1};
     float expected_Humidity = 31.13;
     float expected_Temperature = 40.00;
 

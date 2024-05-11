@@ -28,8 +28,15 @@ void resetRegisters() {
 */
 
 /******************************************************************************
-function :	Public function for initializing DHT20 sensor
-parameter:  -
+function :	Initializing DHT20 sensor
+parameter:
+    i2c:                set the i2c channel u want to use for the sensor
+    hardwareAddress:    Physical Device Address as  one byte hex (use
+DHT20_ADDR) scl_pin:            SCL-Pin where u connect to the pico sda_pin:
+SDA-Pin where u connect to the pico
+return:
+    7: Sensor initialized -> len of i2c_*_blocking
+    -1: Initialisation failed
 ******************************************************************************/
 int init_dht20(i2c_inst_t* i2c,
                uint8_t hardwareAddress,
@@ -58,13 +65,24 @@ int init_dht20(i2c_inst_t* i2c,
     if (error == PICO_ERROR_GENERIC)
         return_value = -1;
 
+    // if (buf[0] != 24) {
+    if (buf[0] != 24) {
+        printf("init fail%x\n", buf[0]);
+        return_value = -1;
+        // return -1;
+    }
+
     sleep_ms(10);
     return return_value;
 }
 
 /******************************************************************************
-function :	Internal function for DHT20 status word (0x18)
-parameter:  status
+function :	Function for requesting data from sensor
+parameter:
+    TRIGGER_MESSUREMENT/ -PARAM1/ -Params2: start to read data from sensor
+return:
+    0: data received
+    -1: failed to get values from sensor
 ******************************************************************************/
 uint8_t readData_dht20(uint8_t reg0, uint8_t reg1, uint8_t reg2) {
     data[0] = reg0;
@@ -90,8 +108,10 @@ uint8_t readData_dht20(uint8_t reg0, uint8_t reg1, uint8_t reg2) {
 }
 
 /******************************************************************************
-function :	Public function for requesting data from sensor
-parameter:  values (hum, temp)
+function :	Helper function for read and calculate
+parameter:
+    TRIGGER_MESSUREMENT/ -PARAM1/ -Params2: start to read data from sensor
+return: Return the values.hum in g/m^3 and values.temp in C°C
 ******************************************************************************/
 dht20_values getTemperatureHumidity_dht20() {
     readData_dht20(TRIGGER_MESSUREMENT,
@@ -100,12 +120,16 @@ dht20_values getTemperatureHumidity_dht20() {
 
     // calc_checksum_dht20();
 
-    return calculate_dht20((int*)data);
+    return calculate_dht20((uint8_t*)data);
 }
 
 /******************************************************************************
-function :	Internal function to check the received bits from DHT20 via CRC
+function :	Internal function to check the received bytes from DHT20 via CRC
 parameter:
+    data: 7 bytes recieved from sensor
+return:
+    crc: calculated checksum value -> 0
+    -1: if data is wrong
 call from main via dht_checksum()
 ******************************************************************************/
 unsigned char calc_checksum_dht20(uint8_t ele1,
@@ -123,7 +147,7 @@ unsigned char calc_checksum_dht20(uint8_t ele1,
     data[4] = ele5;
     data[5] = ele6;
     data[6] = ele7;
-    int res = 0;
+    uint8_t res = 0;
     res = result;
 
     printf("checksum executed\n");
@@ -140,23 +164,33 @@ unsigned char calc_checksum_dht20(uint8_t ele1,
             }
         }
     }
-    if (crc = res) {
+    if (crc == res) {
         printf("dht20_checksum = %x\n", crc);
         return crc;
     } else
         return -1;
 }
 
+/******************************************************************************
+function :	Function to test the calculation for the checksum
+parameter: data(7), expected_value
+******************************************************************************/
 int get_checksum_dht20() {
-    calc_checksum_dht20(28, 132, 194, 115, 236, 30, 153, 0);
-    calc_checksum_dht20(28, 39, 172, 186, 35, 230, 40, 0);
+    calc_checksum_dht20(
+        28, 132, 194, 115, 236, 30, 153, 0); // data(7), expected_value
+    calc_checksum_dht20(
+        28, 39, 172, 186, 35, 230, 40, 0); // data(7), expected_value
 }
 
 /******************************************************************************
-function :	Internal function for converting from bytes to numerial
-parameter:  values (hum, temp)
+function :	Function to calculate temperature and humidity from raw data
+parameter:
+    data: 7 Bytes raw data recieved from sensor
+    values.hum: calculated humidity in g/m^3
+    values.temp: calculated temperatur °C
+return: values.hum in g/m^3 and values.temp in C°C
 ******************************************************************************/
-dht20_values calculate_dht20(int data[7]) {
+dht20_values calculate_dht20(uint8_t data[7]) {
     int humidity_raw = (data[1] << 12) | (data[2] << 8) | (data[3] >> 4);
     int temperature_raw =
         ((data[3] << 16) | (data[4] << 8) | data[5]) & 0xfffff;
