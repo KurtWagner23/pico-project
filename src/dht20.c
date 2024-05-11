@@ -58,13 +58,6 @@ int init_dht20(i2c_inst_t* i2c,
     if (error == PICO_ERROR_GENERIC)
         return_value = -1;
 
-    // if (buf[0] != 24) {
-    if (buf[0] != 24) {
-        printf("init fail%x\n", buf[0]);
-        return_value = -1;
-        // return -1;
-    }
-
     sleep_ms(10);
     return return_value;
 }
