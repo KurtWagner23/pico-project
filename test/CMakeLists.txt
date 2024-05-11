@@ -10,5 +10,6 @@ list(REMOVE_ITEM SOURCE_FILES ${PROJECT_SOURCE_DIR}/src/lcd.c)
 add_library(src ${SOURCE_FILES})
 target_link_libraries(src prototypes)
 
+# Add here your test subdirectories
 add_subdirectory(lis3_tests)
 add_subdirectory(dht20_tests)

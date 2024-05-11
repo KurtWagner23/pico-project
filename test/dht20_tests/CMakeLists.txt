@@ -16,5 +16,5 @@ set_property(TARGET ${EXECUTABLE_NAME}
 )
 
 include_directories(../mocks)
-include_directories(${EXECUTABLE_NAME} ../../src)
-include_directories(${EXECUTABLE_NAME} ../prototypes)
+include_directories(../../src)
+include_directories(../prototypes)
