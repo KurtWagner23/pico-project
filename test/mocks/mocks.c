@@ -1,5 +1,5 @@
 #include "mocks.h"
-#include <stdio.h>
+// #include <stdio.h>
 
 int __wrap_i2c_write_blocking(i2c_inst_t* i2c,
                               uint8_t addr,
@@ -23,5 +23,5 @@ int __wrap_i2c_read_blocking(
         dst[i] = (uint8_t)mock();
         // printf("dst[%d] = %d\n", i, dst[i]);
     }
-    return len;
+    return (int)len;
 }

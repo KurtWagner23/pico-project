@@ -12,7 +12,8 @@ add_cmocka_test(${EXECUTABLE_NAME}
 
 set_property(TARGET ${EXECUTABLE_NAME}
              PROPERTY LINK_FLAGS
-             "${DEFAULT_LINK_FLAGS} -Wl,--wrap=i2c_write_blocking,--wrap=i2c_read_blocking"
+             "${DEFAULT_LINK_FLAGS} -Wl,--wrap=i2c_write_blocking,
+             --wrap=i2c_read_blocking"
 )
 
 include_directories(../mocks)

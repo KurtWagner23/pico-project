@@ -152,6 +152,15 @@ The test-runner.sh script is used in GitHub Action Continous-Integration-Pipelin
 - Look inside the source code for reference.
 - **Don't** change any other CMakeLists.txt files.
 
+## License Notice
+
+Pico-SDK is licensed under **BSD 3-Clause "New" or "Revised" License**
+- [View license](https://github.com/raspberrypi/pico-sdk/blob/master/LICENSE.TXT)
+
+cmocka Unit Testing Framework is licensed under **Apache-2.0 License**
+- [View license](https://github.com/clibs/cmocka?tab=Apache-2.0-1-ov-file#readme)
+
+
 
 
 
