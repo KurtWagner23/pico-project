@@ -1,5 +1,12 @@
 # src/CMakeLists.txt
 
+find_program(PICOTOOL NAMES picotool)
+if(PICOTOOL)
+    message(STATUS "Picotool found")
+else()
+    message(WARNING "Picotool not found! Consider installing when you upload automatically! Instructions for installing Picotool in the Readme.md")
+endif()
+
 
 include_directories(../external/Pico-LCD-1.14/c/lib/Config)
 include_directories(../external/Pico-LCD-1.14/c/lib/GUI)
@@ -40,3 +47,10 @@ pico_add_extra_outputs(${PROJECT_NAME})
 
 pico_enable_stdio_usb(${PROJECT_NAME} 1)
 pico_enable_stdio_uart(${PROJECT_NAME} 1)
+
+# Add a custom target for uploading
+add_custom_target(upload
+    COMMAND picotool load -f ${CMAKE_BINARY_DIR}/bin/main.uf2
+    DEPENDS main
+    COMMENT "Uploading the binary to Raspberry Pi Pico"
+)
