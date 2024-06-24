@@ -4,7 +4,7 @@ find_program(PICOTOOL NAMES picotool)
 if(PICOTOOL)
     message(STATUS "Picotool found")
 else()
-    message(WARNING "Picotool not found! Consider installing when you upload automatically! Instructions for installing Picotool in the Readme.md")
+    message(WARNING "Picotool not found! Consider installing when you want to upload automatically! Instructions for installing Picotool in the Readme.md")
 endif()
 
 
