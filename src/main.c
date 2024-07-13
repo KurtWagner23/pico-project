@@ -38,7 +38,7 @@ int main() {
     setup();
 
     char acc[50];
-    char temp[10];
+    char temp[50];
 
     gpio_put(PICO_DEFAULT_LED_PIN, 1);
 
