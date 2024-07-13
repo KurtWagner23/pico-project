@@ -49,8 +49,17 @@ pico_enable_stdio_usb(${PROJECT_NAME} 1)
 pico_enable_stdio_uart(${PROJECT_NAME} 1)
 
 # Add a custom target for uploading
-add_custom_target(upload
-    COMMAND picotool load -f ${CMAKE_BINARY_DIR}/bin/main.uf2
-    DEPENDS main
-    COMMENT "Uploading the binary to Raspberry Pi Pico"
-)
+if(WIN32)
+    add_custom_target(upload
+        COMMAND picotool load ${CMAKE_BINARY_DIR}/bin/main.uf2
+        DEPENDS main
+        COMMENT "Uploading the binary to Raspberry Pi Pico on Windows"
+    )
+else()
+    add_custom_target(upload
+        COMMAND picotool load -f ${CMAKE_BINARY_DIR}/bin/main.uf2
+        DEPENDS main
+        COMMENT "Uploading the binary to Raspberry Pi Pico on Linux"
+    )
+endif()
+
