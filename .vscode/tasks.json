@@ -4,7 +4,13 @@
         {
             "label": "Upload to Pico",
             "type": "shell",
-            "command": "cd ${workspaceRoot}/build/rp2040 && ninja upload",
+            "command": "ninja",
+            "args": [
+                "upload"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/build/rp2040"
+            },
             "problemMatcher": []
         }
     ]
