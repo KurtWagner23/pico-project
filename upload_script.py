@@ -4,10 +4,7 @@ import sys
 import subprocess
 
 def run_command(command):
-    if sys.platform.startswith('win'):
-        subprocess.run(command, creationflags=subprocess.CREATE_NO_WINDOW, check=True)
-    else:
-        subprocess.run(command, shell=True, check=True)
+    subprocess.run(command, shell=True, check=True)
 
 def main():
     if sys.platform.startswith('win'):
