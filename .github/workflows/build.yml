@@ -1,6 +1,7 @@
 name: CMake Build
-run-name: ${{ github.actor }} is running CMake build-pipeline for RP2040
-on: [push]
+
+on:
+  workflow_call:
 
 jobs:
   CMake-Build:

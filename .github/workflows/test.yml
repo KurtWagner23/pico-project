@@ -1,6 +1,8 @@
 name: Automated Testing
-run-name: ${{ github.actor }} is running automated Unit-Tests
-on: [push]
+
+on:
+  workflow_call:
+
 
 jobs:
   Test-Runner:
