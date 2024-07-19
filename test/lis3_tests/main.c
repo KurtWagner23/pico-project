@@ -123,7 +123,7 @@ static void test_readData_LIS3DHTR_Acceleration_neg_value(void** state) {
 
     acceleration = readData_LIS3DHTR(0x28, true);
 
-    assert_float_equal(acceleration, -12, 0.5); // -9.81
+    assert_float_equal(acceleration, -9.81, 0.5);
 }
 
 static void test_i2c_read_blocking(void** state) {
