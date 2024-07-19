@@ -6,6 +6,9 @@ on:
 jobs:
   Test-Runner:
     runs-on: ubuntu-latest
+    permissions:
+      checks: write
+      pull-requests: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -31,5 +34,6 @@ jobs:
 
       - name: Publish test results
         uses: EnricoMi/publish-unit-test-result-action@v2.7.0
+        if: always()
         with:
           files: '**/build/test/test-results.xml'
