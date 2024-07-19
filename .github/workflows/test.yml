@@ -3,7 +3,6 @@ name: Automated Testing
 on:
   workflow_call:
 
-
 jobs:
   Test-Runner:
     runs-on: ubuntu-latest
@@ -16,20 +15,21 @@ jobs:
 
       - name: Test-Runner Script
         run: |
+          chmod +x ./test-runner.sh
           ./test-runner.sh
-          # # Check the exit status of the tests and fail the workflow if they fail
-          # if [ $? -ne 0 ]; then
-          #   echo "Tests failed. Failing the workflow."
-          #   exit 1
-          # fi
 
       - name: Upload test results
         if: always()
         uses: actions/upload-artifact@v2
         with:
           name: test-results
-          path: build/test/Testing/Temporary
+          path: build/test/test-results.xml
 
       - name: Display test logs
         if: failure()
         run: cat build/test/Testing/Temporary/LastTest.log
+
+      - name: Publish test results
+        uses: EnricoMi/publish-unit-test-result-action@v2.7.0
+        with:
+          files: '**/build/test/test-results.xml'
