@@ -61,7 +61,7 @@ configure_file(${CMAKE_SOURCE_DIR}/upload_script.py ${UPLOAD_SCRIPT} @ONLY)
 # Add the custom target to run the Python script
 add_custom_target(upload
     COMMAND ${Python3_EXECUTABLE} ${UPLOAD_SCRIPT} ${CMAKE_BINARY_DIR}/bin/main.uf2
-    DEPENDS main
+    DEPENDS ${PROJECT_NAME}
     COMMENT "Uploading the binary to Raspberry Pi Pico"
 )
 
