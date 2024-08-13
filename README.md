@@ -96,11 +96,14 @@ The test-runner.sh script is used in GitHub Action Continous-Integration-Pipelin
 After installing the dependencies from the sections above you can follow these steps on how to configure Debugging and automated flashing for the Raspberry Pi Pico. 
 
 ### Pico Probe 
-- Open a new terminal window and type: ```sudo openocd -f interface/cmsis-dap.cfg -c "adapter speed 5000" -f target/rp2040.cfg -s tcl```
-  - This will start openocd and opens a port for gdb to listen to.
-![alt text](assets/Pico-Debug.png)
+
+- **(Only with Linux required)** Open a new terminal window and type: ```sudo openocd -f interface/cmsis-dap.cfg -c "adapter speed 5000" -f target/rp2040.cfg -s tcl```
+- This will start openocd and opens a port for gdb to listen to.
+![alt text](assets/Pico-Debug.png) 
 - :arrow_forward: Start Debugging and Automatic Flashing
 - **Important**: before starting to debug you have to build manually with the build-script or [build with VS-Code](#building-template-in-visual-studio-code)
+
+- **When it is not working you can find instructions [here](https://www.digikey.de/en/maker/projects/raspberry-pi-pico-and-rp2040-cc-part-2-debugging-with-vs-code/470abc7efb07432b82c95f6f67f184c0).**
 
 
 ### How To Connect RPI Pico and Sensors
