@@ -1,0 +1,10 @@
+name: Pipeline Workflow
+on: [push]
+
+jobs:
+    build:
+        uses: ./.github/workflows/build.yml
+
+    test:
+        needs: build
+        uses: ./.github/workflows/test.yml

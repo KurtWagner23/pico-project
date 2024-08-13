@@ -14,6 +14,7 @@ void setup() {
     // init pico default LED
     gpio_init(PICO_DEFAULT_LED_PIN);
     gpio_set_dir(PICO_DEFAULT_LED_PIN, GPIO_OUT);
+    gpio_put(PICO_DEFAULT_LED_PIN, 1);
 
     i2c_init(i2c_zero, 400 * 1000);
     gpio_set_function(scl_controller_zero, GPIO_FUNC_I2C);
@@ -38,9 +39,7 @@ int main() {
     setup();
 
     char acc[50];
-    char temp[10];
-
-    gpio_put(PICO_DEFAULT_LED_PIN, 1);
+    char temp[50];
 
     dht20_values Values;
     //  main loop

@@ -4,7 +4,8 @@ include(FetchContent)
 # Also specify GIT_SHALLOW to avoid cloning branch we don't care about
 FetchContent_Declare(
   cmocka
-  GIT_REPOSITORY https://git.cryptomilk.org/projects/cmocka.git
+  #GIT_REPOSITORY https://git.cryptomilk.org/projects/cmocka.git
+  GIT_REPOSITORY https://gitlab.com/cmocka/cmocka.git
   GIT_TAG        cmocka-1.1.5
   GIT_SHALLOW    1
 )

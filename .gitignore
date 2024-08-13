@@ -2,3 +2,5 @@
 /build-rp2040
 /build-tests
 /build
+/cmake-*
+/.idea

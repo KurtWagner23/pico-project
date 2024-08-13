@@ -1,0 +1,39 @@
+name: Automated Testing
+
+on:
+  workflow_call:
+
+jobs:
+  Test-Runner:
+    runs-on: ubuntu-latest
+    permissions:
+      checks: write
+      pull-requests: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Installing Ninja
+        uses: seanmiddleditch/gha-setup-ninja@master
+
+      - name: Test-Runner Script
+        run: |
+          chmod +x ./test-runner.sh
+          ./test-runner.sh
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: build/test/test-results.xml
+
+      - name: Display test logs
+        if: failure()
+        run: cat build/test/Testing/Temporary/LastTest.log
+
+      - name: Publish test results
+        uses: EnricoMi/publish-unit-test-result-action@v2.17.0
+        if: always()
+        with:
+          files: '**/build/test/test-results.xml'
