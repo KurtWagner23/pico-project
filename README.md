@@ -31,10 +31,10 @@ Additional documentation: [Official getting started PDF](https://datasheets.rasp
   - [Microsoft C/C++](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools)
   - [Cortex-Debug](https://marketplace.visualstudio.com/items?itemName=marus25.cortex-debug)
 
-## Install Instructions for Linux :penguin:
+### Install Instructions for Linux :penguin:
 - [Link to Instructions](Install-Linux.md)
 
-## Install Instructions for Windows
+### Install Instructions for Windows
 - [Link to Instructions](Install-Windows.md)
 
 ## How To Build Template-Project :hammer:
